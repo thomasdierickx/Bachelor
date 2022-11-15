@@ -1,1 +1,3 @@
-# Bachelor
+# Bachelor Project
+
+## WebGL & ThreeJS template
