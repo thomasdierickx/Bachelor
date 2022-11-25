@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E0C6913C2930F587000C6464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C6913B2930F587000C6464 /* AppDelegate.swift */; };
+		E0C6913E2930F587000C6464 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C6913D2930F587000C6464 /* art.scnassets */; };
+		E0C691402930F587000C6464 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C6913F2930F587000C6464 /* ViewController.swift */; };
+		E0C691432930F587000C6464 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0C691412930F587000C6464 /* Main.storyboard */; };
+		E0C691452930F589000C6464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C691442930F589000C6464 /* Assets.xcassets */; };
+		E0C691482930F589000C6464 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0C691462930F589000C6464 /* LaunchScreen.storyboard */; };
+		E0C691522930F589000C6464 /* SamsoniteV3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C691512930F589000C6464 /* SamsoniteV3Tests.swift */; };
+		E0C6915C2930F589000C6464 /* SamsoniteV3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C6915B2930F589000C6464 /* SamsoniteV3UITests.swift */; };
+		E0C6915E2930F589000C6464 /* SamsoniteV3UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C6915D2930F589000C6464 /* SamsoniteV3UITestsLaunchTests.swift */; };
+		E0C691712930FAA7000C6464 /* blenderModelOpen.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C691702930FAA7000C6464 /* blenderModelOpen.dae */; };
+		E0C691722930FAB9000C6464 /* blenderModelOpen.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C691702930FAA7000C6464 /* blenderModelOpen.dae */; };
+		E0C691732930FABA000C6464 /* blenderModelOpen.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C691702930FAA7000C6464 /* blenderModelOpen.dae */; };
+		E0C691752930FACA000C6464 /* modelClosed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C691742930FACA000C6464 /* modelClosed.dae */; };
+		E0C691762930FACA000C6464 /* modelClosed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C691742930FACA000C6464 /* modelClosed.dae */; };
+		E0C691772930FACA000C6464 /* modelClosed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C691742930FACA000C6464 /* modelClosed.dae */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E0C6914E2930F589000C6464 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0C691302930F587000C6464 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0C691372930F587000C6464;
+			remoteInfo = SamsoniteV3;
+		};
+		E0C691582930F589000C6464 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0C691302930F587000C6464 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0C691372930F587000C6464;
+			remoteInfo = SamsoniteV3;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E0C691382930F587000C6464 /* SamsoniteV3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SamsoniteV3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0C6913B2930F587000C6464 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E0C6913D2930F587000C6464 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		E0C6913F2930F587000C6464 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E0C691422930F587000C6464 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E0C691442930F589000C6464 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E0C691472930F589000C6464 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E0C6914D2930F589000C6464 /* SamsoniteV3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamsoniteV3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0C691512930F589000C6464 /* SamsoniteV3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsoniteV3Tests.swift; sourceTree = "<group>"; };
+		E0C691572930F589000C6464 /* SamsoniteV3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamsoniteV3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0C6915B2930F589000C6464 /* SamsoniteV3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsoniteV3UITests.swift; sourceTree = "<group>"; };
+		E0C6915D2930F589000C6464 /* SamsoniteV3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsoniteV3UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E0C691702930FAA7000C6464 /* blenderModelOpen.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = blenderModelOpen.dae; sourceTree = SOURCE_ROOT; };
+		E0C691742930FACA000C6464 /* modelClosed.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = modelClosed.dae; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E0C691352930F587000C6464 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C6914A2930F589000C6464 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C691542930F589000C6464 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E0C6912F2930F587000C6464 = {
+			isa = PBXGroup;
+			children = (
+				E0C6913A2930F587000C6464 /* SamsoniteV3 */,
+				E0C691502930F589000C6464 /* SamsoniteV3Tests */,
+				E0C6915A2930F589000C6464 /* SamsoniteV3UITests */,
+				E0C691392930F587000C6464 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E0C691392930F587000C6464 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E0C691382930F587000C6464 /* SamsoniteV3.app */,
+				E0C6914D2930F589000C6464 /* SamsoniteV3Tests.xctest */,
+				E0C691572930F589000C6464 /* SamsoniteV3UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E0C6913A2930F587000C6464 /* SamsoniteV3 */ = {
+			isa = PBXGroup;
+			children = (
+				E0C6913B2930F587000C6464 /* AppDelegate.swift */,
+				E0C6913D2930F587000C6464 /* art.scnassets */,
+				E0C6913F2930F587000C6464 /* ViewController.swift */,
+				E0C691412930F587000C6464 /* Main.storyboard */,
+				E0C691442930F589000C6464 /* Assets.xcassets */,
+				E0C691462930F589000C6464 /* LaunchScreen.storyboard */,
+				E0C691702930FAA7000C6464 /* blenderModelOpen.dae */,
+				E0C691742930FACA000C6464 /* modelClosed.dae */,
+			);
+			path = SamsoniteV3;
+			sourceTree = "<group>";
+		};
+		E0C691502930F589000C6464 /* SamsoniteV3Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E0C691512930F589000C6464 /* SamsoniteV3Tests.swift */,
+			);
+			path = SamsoniteV3Tests;
+			sourceTree = "<group>";
+		};
+		E0C6915A2930F589000C6464 /* SamsoniteV3UITests */ = {
+			isa = PBXGroup;
+			children = (
+				E0C6915B2930F589000C6464 /* SamsoniteV3UITests.swift */,
+				E0C6915D2930F589000C6464 /* SamsoniteV3UITestsLaunchTests.swift */,
+			);
+			path = SamsoniteV3UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E0C691372930F587000C6464 /* SamsoniteV3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0C691612930F589000C6464 /* Build configuration list for PBXNativeTarget "SamsoniteV3" */;
+			buildPhases = (
+				E0C691342930F587000C6464 /* Sources */,
+				E0C691352930F587000C6464 /* Frameworks */,
+				E0C691362930F587000C6464 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SamsoniteV3;
+			productName = SamsoniteV3;
+			productReference = E0C691382930F587000C6464 /* SamsoniteV3.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E0C6914C2930F589000C6464 /* SamsoniteV3Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0C691642930F589000C6464 /* Build configuration list for PBXNativeTarget "SamsoniteV3Tests" */;
+			buildPhases = (
+				E0C691492930F589000C6464 /* Sources */,
+				E0C6914A2930F589000C6464 /* Frameworks */,
+				E0C6914B2930F589000C6464 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0C6914F2930F589000C6464 /* PBXTargetDependency */,
+			);
+			name = SamsoniteV3Tests;
+			productName = SamsoniteV3Tests;
+			productReference = E0C6914D2930F589000C6464 /* SamsoniteV3Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E0C691562930F589000C6464 /* SamsoniteV3UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0C691672930F589000C6464 /* Build configuration list for PBXNativeTarget "SamsoniteV3UITests" */;
+			buildPhases = (
+				E0C691532930F589000C6464 /* Sources */,
+				E0C691542930F589000C6464 /* Frameworks */,
+				E0C691552930F589000C6464 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0C691592930F589000C6464 /* PBXTargetDependency */,
+			);
+			name = SamsoniteV3UITests;
+			productName = SamsoniteV3UITests;
+			productReference = E0C691572930F589000C6464 /* SamsoniteV3UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E0C691302930F587000C6464 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					E0C691372930F587000C6464 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					E0C6914C2930F589000C6464 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = E0C691372930F587000C6464;
+					};
+					E0C691562930F589000C6464 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = E0C691372930F587000C6464;
+					};
+				};
+			};
+			buildConfigurationList = E0C691332930F587000C6464 /* Build configuration list for PBXProject "SamsoniteV3" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E0C6912F2930F587000C6464;
+			productRefGroup = E0C691392930F587000C6464 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E0C691372930F587000C6464 /* SamsoniteV3 */,
+				E0C6914C2930F589000C6464 /* SamsoniteV3Tests */,
+				E0C691562930F589000C6464 /* SamsoniteV3UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E0C691362930F587000C6464 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0C6913E2930F587000C6464 /* art.scnassets in Resources */,
+				E0C691482930F589000C6464 /* LaunchScreen.storyboard in Resources */,
+				E0C691752930FACA000C6464 /* modelClosed.dae in Resources */,
+				E0C691452930F589000C6464 /* Assets.xcassets in Resources */,
+				E0C691712930FAA7000C6464 /* blenderModelOpen.dae in Resources */,
+				E0C691432930F587000C6464 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C6914B2930F589000C6464 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0C691762930FACA000C6464 /* modelClosed.dae in Resources */,
+				E0C691722930FAB9000C6464 /* blenderModelOpen.dae in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C691552930F589000C6464 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0C691772930FACA000C6464 /* modelClosed.dae in Resources */,
+				E0C691732930FABA000C6464 /* blenderModelOpen.dae in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E0C691342930F587000C6464 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0C691402930F587000C6464 /* ViewController.swift in Sources */,
+				E0C6913C2930F587000C6464 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C691492930F589000C6464 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0C691522930F589000C6464 /* SamsoniteV3Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0C691532930F589000C6464 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0C6915C2930F589000C6464 /* SamsoniteV3UITests.swift in Sources */,
+				E0C6915E2930F589000C6464 /* SamsoniteV3UITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E0C6914F2930F589000C6464 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0C691372930F587000C6464 /* SamsoniteV3 */;
+			targetProxy = E0C6914E2930F589000C6464 /* PBXContainerItemProxy */;
+		};
+		E0C691592930F589000C6464 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0C691372930F587000C6464 /* SamsoniteV3 */;
+			targetProxy = E0C691582930F589000C6464 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E0C691412930F587000C6464 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0C691422930F587000C6464 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E0C691462930F589000C6464 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0C691472930F589000C6464 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E0C6915F2930F589000C6464 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E0C691602930F589000C6464 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E0C691622930F589000C6464 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FWBB2L3H5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = be.iamthomas.SamsoniteV3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E0C691632930F589000C6464 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FWBB2L3H5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = be.iamthomas.SamsoniteV3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E0C691652930F589000C6464 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FWBB2L3H5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = be.iamthomas.SamsoniteV3Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SamsoniteV3.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SamsoniteV3";
+			};
+			name = Debug;
+		};
+		E0C691662930F589000C6464 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FWBB2L3H5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = be.iamthomas.SamsoniteV3Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SamsoniteV3.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SamsoniteV3";
+			};
+			name = Release;
+		};
+		E0C691682930F589000C6464 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FWBB2L3H5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = be.iamthomas.SamsoniteV3UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SamsoniteV3;
+			};
+			name = Debug;
+		};
+		E0C691692930F589000C6464 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FWBB2L3H5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = be.iamthomas.SamsoniteV3UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SamsoniteV3;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E0C691332930F587000C6464 /* Build configuration list for PBXProject "SamsoniteV3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0C6915F2930F589000C6464 /* Debug */,
+				E0C691602930F589000C6464 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0C691612930F589000C6464 /* Build configuration list for PBXNativeTarget "SamsoniteV3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0C691622930F589000C6464 /* Debug */,
+				E0C691632930F589000C6464 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0C691642930F589000C6464 /* Build configuration list for PBXNativeTarget "SamsoniteV3Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0C691652930F589000C6464 /* Debug */,
+				E0C691662930F589000C6464 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0C691672930F589000C6464 /* Build configuration list for PBXNativeTarget "SamsoniteV3UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0C691682930F589000C6464 /* Debug */,
+				E0C691692930F589000C6464 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E0C691302930F587000C6464 /* Project object */;
+}
