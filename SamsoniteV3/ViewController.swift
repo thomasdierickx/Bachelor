@@ -44,11 +44,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create 3D text
         let text = SCNText(string: "Samsonite IBON", extrusionDepth: 2);
+        let bodyText = SCNText(string: "De IBON collectie, gelanceerd in 2021, is een pionier \n op het gebied van innovatie en design. De opening bevindt \n zich aan de voorkant van de koffer, waardoor de oppervlakte \n die de valies inneemt hetzelfde blijft wanneer deze geopend is. \n Alle spullen van de reiziger blijven veilig opgeborgen dankzij de \n eenpuntssluiting met geïntegreerd TSA-slot.", extrusionDepth: 1)
         
         // Create & Add color
         let material = SCNMaterial();
         material.diffuse.contents = UIColor.red;
+        material.diffuse.contents = UIFont.systemFont(ofSize: 34, weight: UIFont.Weight.black)
         text.materials = [material];
+        
+        let materialWhite = SCNMaterial();
+        materialWhite.diffuse.contents = UIColor.white;
+        material.diffuse.contents = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
+        bodyText.materials = [materialWhite]
         
         // Creates node object & positions it
         let node = SCNNode();
@@ -56,10 +63,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.scale = SCNVector3(x: 0.05, y: 0.05, z: 0.05);
         node.geometry = text;
         
+        let nodeBodyText = SCNNode();
+        nodeBodyText.position = SCNVector3(-2.0, -5.0, -5.0);
+        nodeBodyText.scale = SCNVector3(x: 0.02, y: 0.02, z: 0.02);
+//        nodeBodyText.
+        nodeBodyText.geometry = bodyText;
+        
         // Set the scene & elements to the view
         sceneView.scene = scene
         sceneView.scene.rootNode.addChildNode(node);
         sceneView.autoenablesDefaultLighting = true; // Adds lighting and shadows
+        sceneView.scene.rootNode.addChildNode(nodeBodyText);
+        sceneView.autoenablesDefaultLighting = true;
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
