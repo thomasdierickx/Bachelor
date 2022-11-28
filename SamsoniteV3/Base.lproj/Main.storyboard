@@ -22,6 +22,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="RgY-Wo-Zs2" appends="YES" id="OiP-ch-bMI"/>
+                                    <outletCollection property="gestureRecognizers" destination="B5R-9J-Ja4" appends="YES" id="tGe-9x-iCu"/>
                                 </connections>
                             </arscnView>
                         </subviews>
@@ -44,6 +45,11 @@
                         <action selector="PinchGestureRecognizer:" destination="BV1-FR-VrT" id="gr4-jR-BME"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="B5R-9J-Ja4">
+                    <connections>
+                        <action selector="ChangePosition:" destination="BV1-FR-VrT" id="ZyX-y7-qaS"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="20.610687022900763" y="3.5211267605633805"/>
         </scene>

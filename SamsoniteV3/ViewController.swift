@@ -15,10 +15,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var modelScene: SCNScene?
     var modelSceneNode: SCNNode?
-    var counter: Double = 1.0;
+    var counter: Double = 0.01;
+    
+    private var hud: MBProgressHUD!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hud = MBProgressHUD.showAdded(to: self.sceneView, animated: true);
+        self.hud.label.text = "Detecting Plane..."
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -33,12 +38,38 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         modelSceneNode = modelScene?.rootNode.childNode(withName: "ibonModelOpen", recursively: true)
         
-        modelSceneNode?.position = SCNVector3(0, 0, -5.0);
+        modelSceneNode?.position = SCNVector3(0, -3.0, -5.0);
         
         scene.rootNode.addChildNode(modelSceneNode!);
         
-        // Set the scene to the view
+        // Create 3D text
+        let text = SCNText(string: "Samsonite IBON", extrusionDepth: 2);
+        
+        // Create & Add color
+        let material = SCNMaterial();
+        material.diffuse.contents = UIColor.red;
+        text.materials = [material];
+        
+        // Creates node object & positions it
+        let node = SCNNode();
+        node.position = SCNVector3(-2.0, -3.0, -5.0);
+        node.scale = SCNVector3(x: 0.05, y: 0.05, z: 0.05);
+        node.geometry = text;
+        
+        // Set the scene & elements to the view
         sceneView.scene = scene
+        sceneView.scene.rootNode.addChildNode(node);
+        sceneView.autoenablesDefaultLighting = true; // Adds lighting and shadows
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        
+        if anchor is ARPlaneAnchor {
+            DispatchQueue.main.async {
+                self.hud.label.text = "Plane Detected"
+                self.hud.hide(animated: true, afterDelay: 1.0)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +77,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
 
         // Run the view's session
         sceneView.session.run(configuration)
@@ -59,20 +91,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func PinchGestureRecognizer(_ sender: UIPinchGestureRecognizer) {   guard sender.view != nil else { return }
-        // Zoomable Case
-        counter = counter + 0.1;
-        print(counter);
-        if (counter >= 10.0) {
-            counter = 10.0;
+        // Zoomable case
+        if sender.state == .began || sender.state == .changed {
+            counter = sender.scale / 30;
+            print(counter);
+            modelSceneNode?.scale = SCNVector3(counter, counter, counter);
         }
-        modelSceneNode?.scale = SCNVector3(counter, counter, counter);
+    }
+    
+    
+    @IBAction func ChangePosition(_ sender: UILongPressGestureRecognizer) {
+        let touch = sender.location(in: sceneView)
         
+        let hitTestResults = sceneView.hitTest(touch, types: .existingPlane)
         
-//        Zoomable canvas
-//        if sender.state == .began || sender.state == .changed {
-//            sender.view?.transform = (sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale))!
-//            sender.scale = 1.0
-//        }
+        modelSceneNode?.position = SCNVector3(touch.x / 100, -3.0, touch.y / 100)
     }
     // MARK: - ARSCNViewDelegate
     
