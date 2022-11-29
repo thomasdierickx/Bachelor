@@ -33,12 +33,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a new scene
         let scene = SCNScene();
-        
-        modelScene = SCNScene(named: "blenderModelOpen.dae");
-        
-        modelSceneNode = modelScene?.rootNode.childNode(withName: "ibonModelOpen", recursively: true)
-        
-        modelSceneNode?.position = SCNVector3(0, -3.0, -5.0);
+        modelScene = SCNScene(named: "IbonClosed.dae");
+        modelSceneNode = modelScene?.rootNode.childNode(withName: "IBON", recursively: true)
+        modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: 1.5, z: 0)
+        modelSceneNode?.position.x = -1
+        modelSceneNode?.position.y = -1
         
         scene.rootNode.addChildNode(modelSceneNode!);
         
@@ -59,14 +58,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Creates node object & positions it
         let node = SCNNode();
-        node.position = SCNVector3(-2.0, -3.0, -5.0);
-        node.scale = SCNVector3(x: 0.05, y: 0.05, z: 0.05);
+//        node.position = SCNVector3(0, -3.0, 0);
+        node.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         node.geometry = text;
         
         let nodeBodyText = SCNNode();
-        nodeBodyText.position = SCNVector3(-2.0, -5.0, -5.0);
-        nodeBodyText.scale = SCNVector3(x: 0.02, y: 0.02, z: 0.02);
-//        nodeBodyText.
+        nodeBodyText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
+        nodeBodyText.position.y = -1;
         nodeBodyText.geometry = bodyText;
         
         // Set the scene & elements to the view
@@ -74,7 +72,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(node);
         sceneView.autoenablesDefaultLighting = true; // Adds lighting and shadows
         sceneView.scene.rootNode.addChildNode(nodeBodyText);
-        sceneView.autoenablesDefaultLighting = true;
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -105,22 +102,34 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    @IBAction func PinchGestureRecognizer(_ sender: UIPinchGestureRecognizer) {   guard sender.view != nil else { return }
-        // Zoomable case
-        if sender.state == .began || sender.state == .changed {
-            counter = sender.scale / 30;
-            print(counter);
-            modelSceneNode?.scale = SCNVector3(counter, counter, counter);
-        }
+    
+    @IBAction func TapModel(_ sender: UITapGestureRecognizer) {
+        print("you have tapped the screen");
     }
     
+    @IBAction func PinchGestureRecognizer(_ sender: UIPinchGestureRecognizer) {   guard sender.view != nil else { return }
+        // Zoomable case
+//        if sender.state == .began || sender.state == .changed {
+//            counter = sender.scale / 30;
+//            print(counter);
+//            modelSceneNode?.scale = SCNVector3(counter, counter, counter);
+//        }
+    }
+    
+    @IBAction func sliderScale(_ sender: UISlider) {
+        sender.minimumValue = 0.001
+        sender.maximumValue = 1.0
+        print(sender.value)
+        modelSceneNode?.scale = SCNVector3(sender.value, sender.value, sender.value);
+    }
     
     @IBAction func ChangePosition(_ sender: UILongPressGestureRecognizer) {
-        let touch = sender.location(in: sceneView)
+//        let touch = sender.location(in: sceneView)
         
-        let hitTestResults = sceneView.hitTest(touch, types: .existingPlane)
+//        Wordt momenteel niet gebruikt
+//        let hitTestResults = sceneView.hitTest(touch, types: .existingPlane)
         
-        modelSceneNode?.position = SCNVector3(touch.x / 100, -3.0, touch.y / 100)
+//        modelSceneNode?.position = SCNVector3(touch.x / 100, -3.0, touch.y / 100)
     }
     // MARK: - ARSCNViewDelegate
     

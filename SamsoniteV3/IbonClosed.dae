@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.1.2 commit date:2022-03-31, commit time:17:40, hash:cc66d1020c3b</authoring_tool>
+    </contributor>
+    <created>2022-11-29T15:06:19</created>
+    <modified>2022-11-29T15:06:19</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects/>
+  <library_images/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="IBON_CLOSED" name="IBON CLOSED" type="NODE">
+        <matrix sid="transform">1.000003 0 0 0 0 -1.62921e-7 -1.000003 0 0 1.000003 -1.62921e-7 0 0 0 0 1</matrix>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>
