@@ -22,7 +22,8 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="RgY-Wo-Zs2" appends="YES" id="OiP-ch-bMI"/>
-                                    <outletCollection property="gestureRecognizers" destination="B5R-9J-Ja4" appends="YES" id="tGe-9x-iCu"/>
+                                    <outletCollection property="gestureRecognizers" destination="RiO-uO-p9E" appends="YES" id="Ni7-Wy-MXc"/>
+                                    <outletCollection property="gestureRecognizers" destination="dGq-zF-Xww" appends="YES" id="0An-x8-d89"/>
                                 </connections>
                             </arscnView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="y1H-qu-Eeg">
@@ -32,6 +33,36 @@
                                     <action selector="sliderScale:" destination="BV1-FR-VrT" eventType="valueChanged" id="UoI-E4-UMi"/>
                                 </connections>
                             </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mzq-kk-zFD">
+                                <rect key="frame" x="223" y="965" width="365" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="SliderRotation:" destination="BV1-FR-VrT" eventType="valueChanged" id="DoN-1s-9a4"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxF-4T-WbR">
+                                <rect key="frame" x="225" y="936" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAC-s9-3TI">
+                                <rect key="frame" x="225" y="1002" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhr-T3-4Zf">
+                                <rect key="frame" x="225" y="890" width="361" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Change color"/>
+                                <connections>
+                                    <action selector="ChangeColor:" destination="BV1-FR-VrT" eventType="touchUpInside" id="et9-1x-7E1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -52,24 +83,27 @@
                         <action selector="PinchGestureRecognizer:" destination="BV1-FR-VrT" id="gr4-jR-BME"/>
                     </connections>
                 </pinchGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="B5R-9J-Ja4">
+                <swipeGestureRecognizer direction="right" id="RiO-uO-p9E">
                     <connections>
-                        <action selector="ChangePosition:" destination="BV1-FR-VrT" id="ZyX-y7-qaS"/>
+                        <action selector="Swiping:" destination="BV1-FR-VrT" id="ITy-Lb-kcR"/>
                     </connections>
-                </pongPressGestureRecognizer>
-                <tapGestureRecognizer id="8cv-jz-puA">
+                </swipeGestureRecognizer>
+                <tapGestureRecognizer id="dGq-zF-Xww">
                     <connections>
-                        <action selector="TapModel:" destination="BV1-FR-VrT" id="IjE-Oh-69q"/>
-                        <outlet property="delegate" destination="BrB-h1-WRS" id="FDY-zi-DaX"/>
+                        <action selector="OpenCase:" destination="BV1-FR-VrT" id="X7L-Ek-sZy"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="20.610687022900763" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="20" y="3.333333333333333"/>
         </scene>
     </scenes>
+    <color key="tintColor" systemColor="systemBrownColor"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
