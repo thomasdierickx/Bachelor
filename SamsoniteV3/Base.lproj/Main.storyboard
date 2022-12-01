@@ -21,7 +21,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="810" height="1080"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="RgY-Wo-Zs2" appends="YES" id="OiP-ch-bMI"/>
                                     <outletCollection property="gestureRecognizers" destination="RiO-uO-p9E" appends="YES" id="Ni7-Wy-MXc"/>
                                     <outletCollection property="gestureRecognizers" destination="dGq-zF-Xww" appends="YES" id="0An-x8-d89"/>
                                 </connections>
@@ -55,12 +54,42 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhr-T3-4Zf">
-                                <rect key="frame" x="225" y="890" width="361" height="35"/>
+                                <rect key="frame" x="225" y="890" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.88095716120000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.9481443007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Change color"/>
+                                <buttonConfiguration key="configuration" style="filled" title="">
+                                    <color key="baseBackgroundColor" red="1" green="0.0" blue="0.88095716120000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="ChangeColor:" destination="BV1-FR-VrT" eventType="touchUpInside" id="et9-1x-7E1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZW-Xo-yvu">
+                                <rect key="frame" x="282" y="890" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.99999767539999995" green="0.0" blue="0.064558011999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="">
+                                    <color key="baseBackgroundColor" red="0.99999767539999995" green="0.0" blue="0.064558011999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="ChangeColorRed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="FV8-Ew-qSs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Grm-EJ-i6U">
+                                <rect key="frame" x="342" y="890" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="">
+                                    <color key="baseBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="ChangeColorGrey:" destination="BV1-FR-VrT" eventType="touchUpInside" id="R9a-LV-ON4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -78,11 +107,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="RgY-Wo-Zs2">
-                    <connections>
-                        <action selector="PinchGestureRecognizer:" destination="BV1-FR-VrT" id="gr4-jR-BME"/>
-                    </connections>
-                </pinchGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="RiO-uO-p9E">
                     <connections>
                         <action selector="Swiping:" destination="BV1-FR-VrT" id="ITy-Lb-kcR"/>
@@ -97,13 +121,16 @@
             <point key="canvasLocation" x="20" y="3.333333333333333"/>
         </scene>
     </scenes>
-    <color key="tintColor" systemColor="systemBrownColor"/>
+    <color key="tintColor" red="0.15939827957332298" green="0.28976537320909002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

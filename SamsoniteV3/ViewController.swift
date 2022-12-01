@@ -15,9 +15,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var modelScene: SCNScene?
     var modelSceneNode: SCNNode?
+    
     var modelSceneOpen: SCNScene?
     var modelSceneNodeOpen: SCNNode?
+    
+    var modelSceneHP: SCNScene?
+    var modelSceneNodeHP: SCNNode?
+    
+    var modelSceneOpenHP: SCNScene?
+    var modelSceneNodeOpenHP: SCNNode?
+    
+    var modelSceneRed: SCNScene?
+    var modelSceneNodeRed: SCNNode?
+    
+    var modelSceneOpenRed: SCNScene?
+    var modelSceneNodeOpenRed: SCNNode?
+    
     var counter: Double = 0.01;
+    var rotateX: Float = 1.5
+    var rotateY: Float = 0
+    var rotateZ: Float = 0
+    
     // Intro
     var node: SCNNode = SCNNode();
     var nodeBodyText: SCNNode = SCNNode();
@@ -43,23 +61,57 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let scene = SCNScene();
         modelScene = SCNScene(named: "IbonClosed.dae");
         modelSceneNode = modelScene?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: 1.5, z: 0)
+        modelSceneNode?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
         modelSceneNode?.position.x = -1
         modelSceneNode?.position.y = -1
-        let materialCase = SCNMaterial();
-        materialCase.diffuse.contents = UIColor.red;
-        modelSceneNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        
+
         scene.rootNode.addChildNode(modelSceneNode!);
-        
+
         modelSceneOpen = SCNScene(named: "IbonOpen.dae");
         modelSceneNodeOpen = modelSceneOpen?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 0, y: 1.5, z: 0)
+        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
         modelSceneNodeOpen?.position.x = -1
         modelSceneNodeOpen?.position.y = -1
         modelSceneNodeOpen?.isHidden = true
-        
+
         scene.rootNode.addChildNode(modelSceneNodeOpen!);
+
+        // Loading in different colors
+        modelSceneHP = SCNScene(named: "IbonClosedHotPink.dae");
+        modelSceneNodeHP = modelSceneHP?.rootNode.childNode(withName: "IBON", recursively: true)
+        modelSceneNodeHP?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
+        modelSceneNodeHP?.position.x = -1
+        modelSceneNodeHP?.position.y = -1
+        modelSceneNodeHP?.isHidden = true
+
+        scene.rootNode.addChildNode(modelSceneNodeHP!);
+
+        modelSceneOpenHP = SCNScene(named: "IbonOpenHotPink.dae");
+        modelSceneNodeOpenHP = modelSceneOpenHP?.rootNode.childNode(withName: "IBON", recursively: true)
+        modelSceneNodeOpenHP?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
+        modelSceneNodeOpenHP?.position.x = -1
+        modelSceneNodeOpenHP?.position.y = -1
+        modelSceneNodeOpenHP?.isHidden = true
+
+        scene.rootNode.addChildNode(modelSceneNodeOpenHP!);
+        
+        modelSceneRed = SCNScene(named: "IbonClosedRed.dae");
+        modelSceneNodeRed = modelSceneRed?.rootNode.childNode(withName: "IBON", recursively: true)
+        modelSceneNodeRed?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
+        modelSceneNodeRed?.position.x = -1
+        modelSceneNodeRed?.position.y = -1
+        modelSceneNodeRed?.isHidden = true
+
+        scene.rootNode.addChildNode(modelSceneNodeRed!);
+
+        modelSceneOpenRed = SCNScene(named: "IbonOpenRed.dae");
+        modelSceneNodeOpenRed = modelSceneOpenRed?.rootNode.childNode(withName: "IBON", recursively: true)
+        modelSceneNodeOpenRed?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
+        modelSceneNodeOpenRed?.position.x = -1
+        modelSceneNodeOpenRed?.position.y = -1
+        modelSceneNodeOpenRed?.isHidden = true
+
+        scene.rootNode.addChildNode(modelSceneNodeOpenRed!);
         
         // Create 3D text
         let text = SCNText(string: "Samsonite IBON", extrusionDepth: 2);
@@ -142,14 +194,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    @IBAction func PinchGestureRecognizer(_ sender: UIPinchGestureRecognizer) {   guard sender.view != nil else { return }
-        // Zoomable case
-//        if sender.state == .began || sender.state == .changed {
-//            counter = sender.scale / 30;
-//            print(counter);
-//            modelSceneNode?.scale = SCNVector3(counter, counter, counter);
-//        }
-    }
     
     @IBAction func sliderScale(_ sender: UISlider) {
         sender.minimumValue = 0.001
@@ -157,6 +201,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         print(sender.value)
         modelSceneNode?.scale = SCNVector3(sender.value, sender.value, sender.value);
         modelSceneNodeOpen?.scale = SCNVector3(sender.value, sender.value, sender.value);
+        modelSceneNodeHP?.scale = SCNVector3(sender.value, sender.value, sender.value);
+        modelSceneNodeOpenHP?.scale = SCNVector3(sender.value, sender.value, sender.value);
     }
     
     
@@ -166,6 +212,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         print(sender.value)
         modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
         modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
+        modelSceneNodeHP?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
+        modelSceneNodeOpenHP?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -186,18 +234,87 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func OpenCase(_ sender: UITapGestureRecognizer) {
-        if modelSceneNode?.isHidden == true && modelSceneNodeOpen?.isHidden == false{
+        if modelSceneNode?.isHidden == true && modelSceneNodeOpen?.isHidden == false {
             modelSceneNode?.isHidden = false
             modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = true
+        } else if modelSceneNodeHP?.isHidden == true && modelSceneNodeOpenHP?.isHidden == false {
+            modelSceneNode?.isHidden = true
+            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeHP?.isHidden = false
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = true
+        } else if modelSceneNodeHP?.isHidden == false && modelSceneNodeOpenHP?.isHidden == true {
+            modelSceneNode?.isHidden = true
+            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = false
+            modelSceneNodeRed?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = true
+        } else if modelSceneNodeRed?.isHidden == true && modelSceneNodeOpenRed?.isHidden == false {
+            modelSceneNode?.isHidden = true
+            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = false
+            modelSceneNodeOpenRed?.isHidden = true
+        } else if modelSceneNodeRed?.isHidden == false && modelSceneNodeOpenRed?.isHidden == true {
+            modelSceneNode?.isHidden = true
+            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = false
         } else {
             modelSceneNode?.isHidden = true
             modelSceneNodeOpen?.isHidden = false
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = true
         }
     }
     
     
     @IBAction func ChangeColor(_ sender: UIButton) {
-        print("test")
+        if modelSceneNode?.isHidden == false || modelSceneNodeRed?.isHidden == false {
+            modelSceneNode?.isHidden = true
+            modelSceneNodeHP?.isHidden = false
+            modelSceneNodeRed?.isHidden = true
+        } else if modelSceneNodeOpen?.isHidden == false || modelSceneNodeOpenRed?.isHidden == false {
+            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = false
+            modelSceneNodeOpenRed?.isHidden = true
+        }
+    }
+    
+    
+    @IBAction func ChangeColorRed(_ sender: UIButton) {
+        if modelSceneNode?.isHidden == false || modelSceneNodeHP?.isHidden == false {
+            modelSceneNode?.isHidden = true
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = false
+        } else if modelSceneNodeOpen?.isHidden == false || modelSceneNodeOpenHP?.isHidden == false {
+            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = false
+        }
+    }
+    
+    @IBAction func ChangeColorGrey(_ sender: UIButton) {
+        if modelSceneNodeRed?.isHidden == false || modelSceneNodeHP?.isHidden == false {
+            modelSceneNode?.isHidden = false
+            modelSceneNodeHP?.isHidden = true
+            modelSceneNodeRed?.isHidden = true
+        } else if modelSceneNodeOpenRed?.isHidden == false || modelSceneNodeOpenHP?.isHidden == false {
+            modelSceneNodeOpen?.isHidden = false
+            modelSceneNodeOpenHP?.isHidden = true
+            modelSceneNodeOpenRed?.isHidden = true
+        }
     }
     
     // MARK: - ARSCNViewDelegate
