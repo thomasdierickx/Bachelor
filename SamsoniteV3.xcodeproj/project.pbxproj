@@ -20,11 +20,7 @@
 		E0C6917E2934F1A0000C6464 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */; };
 		E0C6917F2934F1A0000C6464 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */; };
 		E0C6919A29365D94000C6464 /* IbonOpen.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C6919929365D94000C6464 /* IbonOpen.dae */; };
-		E0E343202938D981002218E3 /* IbonOpenHotPink.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E3431E2938D981002218E3 /* IbonOpenHotPink.dae */; };
 		E0E343242938DA98002218E3 /* IbonClosed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E343232938DA98002218E3 /* IbonClosed.dae */; };
-		E0E343262938DB0B002218E3 /* IbonClosedHotPink.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E343252938DB0B002218E3 /* IbonClosedHotPink.dae */; };
-		E0E3432B2938FABF002218E3 /* IbonOpenRed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E343292938FABF002218E3 /* IbonOpenRed.dae */; };
-		E0E3432C2938FABF002218E3 /* IbonClosedRed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E3432A2938FABF002218E3 /* IbonClosedRed.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,11 +89,7 @@
 		E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		E0C6917C2934F1A0000C6464 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		E0C6919929365D94000C6464 /* IbonOpen.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonOpen.dae; sourceTree = "<group>"; };
-		E0E3431E2938D981002218E3 /* IbonOpenHotPink.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonOpenHotPink.dae; sourceTree = "<group>"; };
 		E0E343232938DA98002218E3 /* IbonClosed.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonClosed.dae; sourceTree = "<group>"; };
-		E0E343252938DB0B002218E3 /* IbonClosedHotPink.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonClosedHotPink.dae; sourceTree = "<group>"; };
-		E0E343292938FABF002218E3 /* IbonOpenRed.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonOpenRed.dae; sourceTree = "<group>"; };
-		E0E3432A2938FABF002218E3 /* IbonClosedRed.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonClosedRed.dae; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,10 +150,6 @@
 				E0C691462930F589000C6464 /* LaunchScreen.storyboard */,
 				E0C6919929365D94000C6464 /* IbonOpen.dae */,
 				E0E343232938DA98002218E3 /* IbonClosed.dae */,
-				E0E3431E2938D981002218E3 /* IbonOpenHotPink.dae */,
-				E0E343252938DB0B002218E3 /* IbonClosedHotPink.dae */,
-				E0E3432A2938FABF002218E3 /* IbonClosedRed.dae */,
-				E0E343292938FABF002218E3 /* IbonOpenRed.dae */,
 				E0C691782934F19B000C6464 /* SamsoniteV3-Bridging-Header.h */,
 				E0C691792934F19B000C6464 /* SamsoniteV3Tests-Bridging-Header.h */,
 				E0C6917A2934F19B000C6464 /* SamsoniteV3UITests-Bridging-Header.h */,
@@ -297,12 +285,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0C6913E2930F587000C6464 /* art.scnassets in Resources */,
-				E0E343202938D981002218E3 /* IbonOpenHotPink.dae in Resources */,
 				E0C691482930F589000C6464 /* LaunchScreen.storyboard in Resources */,
 				E0C691452930F589000C6464 /* Assets.xcassets in Resources */,
-				E0E3432C2938FABF002218E3 /* IbonClosedRed.dae in Resources */,
-				E0E343262938DB0B002218E3 /* IbonClosedHotPink.dae in Resources */,
-				E0E3432B2938FABF002218E3 /* IbonOpenRed.dae in Resources */,
 				E0C6919A29365D94000C6464 /* IbonOpen.dae in Resources */,
 				E0C691432930F587000C6464 /* Main.storyboard in Resources */,
 				E0E343242938DA98002218E3 /* IbonClosed.dae in Resources */,
@@ -440,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -494,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -641,6 +625,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5FWBB2L3H5;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -667,6 +652,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5FWBB2L3H5;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

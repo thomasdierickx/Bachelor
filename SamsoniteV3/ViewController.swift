@@ -7,29 +7,20 @@
 
 import UIKit
 import SceneKit
+import SceneKit.ModelIO
 import ARKit
 
+@available(iOS 14.0, *)
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+//    @IBOutlet weak var ChooseColor: UIColorWell!
     
     var modelScene: SCNScene?
     var modelSceneNode: SCNNode?
     
     var modelSceneOpen: SCNScene?
     var modelSceneNodeOpen: SCNNode?
-    
-    var modelSceneHP: SCNScene?
-    var modelSceneNodeHP: SCNNode?
-    
-    var modelSceneOpenHP: SCNScene?
-    var modelSceneNodeOpenHP: SCNNode?
-    
-    var modelSceneRed: SCNScene?
-    var modelSceneNodeRed: SCNNode?
-    
-    var modelSceneOpenRed: SCNScene?
-    var modelSceneNodeOpenRed: SCNNode?
     
     var counter: Double = 0.01;
     var rotateX: Float = 1.5
@@ -64,6 +55,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         modelSceneNode?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
         modelSceneNode?.position.x = -1
         modelSceneNode?.position.y = -1
+        
+//        Change color of material CASE CLOSED
+//        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
 
         scene.rootNode.addChildNode(modelSceneNode!);
 
@@ -73,45 +67,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         modelSceneNodeOpen?.position.x = -1
         modelSceneNodeOpen?.position.y = -1
         modelSceneNodeOpen?.isHidden = true
+        
+//        Change color of material CASE CLOSED
+//        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
 
         scene.rootNode.addChildNode(modelSceneNodeOpen!);
-
-        // Loading in different colors
-        modelSceneHP = SCNScene(named: "IbonClosedHotPink.dae");
-        modelSceneNodeHP = modelSceneHP?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeHP?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
-        modelSceneNodeHP?.position.x = -1
-        modelSceneNodeHP?.position.y = -1
-        modelSceneNodeHP?.isHidden = true
-
-        scene.rootNode.addChildNode(modelSceneNodeHP!);
-
-        modelSceneOpenHP = SCNScene(named: "IbonOpenHotPink.dae");
-        modelSceneNodeOpenHP = modelSceneOpenHP?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeOpenHP?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
-        modelSceneNodeOpenHP?.position.x = -1
-        modelSceneNodeOpenHP?.position.y = -1
-        modelSceneNodeOpenHP?.isHidden = true
-
-        scene.rootNode.addChildNode(modelSceneNodeOpenHP!);
-        
-        modelSceneRed = SCNScene(named: "IbonClosedRed.dae");
-        modelSceneNodeRed = modelSceneRed?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeRed?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
-        modelSceneNodeRed?.position.x = -1
-        modelSceneNodeRed?.position.y = -1
-        modelSceneNodeRed?.isHidden = true
-
-        scene.rootNode.addChildNode(modelSceneNodeRed!);
-
-        modelSceneOpenRed = SCNScene(named: "IbonOpenRed.dae");
-        modelSceneNodeOpenRed = modelSceneOpenRed?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeOpenRed?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
-        modelSceneNodeOpenRed?.position.x = -1
-        modelSceneNodeOpenRed?.position.y = -1
-        modelSceneNodeOpenRed?.isHidden = true
-
-        scene.rootNode.addChildNode(modelSceneNodeOpenRed!);
         
         // Create 3D text
         let text = SCNText(string: "Samsonite IBON", extrusionDepth: 2);
@@ -201,8 +161,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         print(sender.value)
         modelSceneNode?.scale = SCNVector3(sender.value, sender.value, sender.value);
         modelSceneNodeOpen?.scale = SCNVector3(sender.value, sender.value, sender.value);
-        modelSceneNodeHP?.scale = SCNVector3(sender.value, sender.value, sender.value);
-        modelSceneNodeOpenHP?.scale = SCNVector3(sender.value, sender.value, sender.value);
     }
     
     
@@ -212,8 +170,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         print(sender.value)
         modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
         modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
-        modelSceneNodeHP?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
-        modelSceneNodeOpenHP?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -237,84 +193,44 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if modelSceneNode?.isHidden == true && modelSceneNodeOpen?.isHidden == false {
             modelSceneNode?.isHidden = false
             modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = true
-        } else if modelSceneNodeHP?.isHidden == true && modelSceneNodeOpenHP?.isHidden == false {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeHP?.isHidden = false
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = true
-        } else if modelSceneNodeHP?.isHidden == false && modelSceneNodeOpenHP?.isHidden == true {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = false
-            modelSceneNodeRed?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = true
-        } else if modelSceneNodeRed?.isHidden == true && modelSceneNodeOpenRed?.isHidden == false {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = false
-            modelSceneNodeOpenRed?.isHidden = true
-        } else if modelSceneNodeRed?.isHidden == false && modelSceneNodeOpenRed?.isHidden == true {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = false
         } else {
             modelSceneNode?.isHidden = true
             modelSceneNodeOpen?.isHidden = false
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = true
         }
     }
     
     
     @IBAction func ChangeColor(_ sender: UIButton) {
-        if modelSceneNode?.isHidden == false || modelSceneNodeRed?.isHidden == false {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeHP?.isHidden = false
-            modelSceneNodeRed?.isHidden = true
-        } else if modelSceneNodeOpen?.isHidden == false || modelSceneNodeOpenRed?.isHidden == false {
-            modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = false
-            modelSceneNodeOpenRed?.isHidden = true
-        }
+        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.systemPink
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.systemPink
     }
     
     
     @IBAction func ChangeColorRed(_ sender: UIButton) {
-        if modelSceneNode?.isHidden == false || modelSceneNodeHP?.isHidden == false {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = false
-        } else if modelSceneNodeOpen?.isHidden == false || modelSceneNodeOpenHP?.isHidden == false {
-            modelSceneNodeOpen?.isHidden = true
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = false
-        }
+        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.red
     }
     
     @IBAction func ChangeColorGrey(_ sender: UIButton) {
-        if modelSceneNodeRed?.isHidden == false || modelSceneNodeHP?.isHidden == false {
-            modelSceneNode?.isHidden = false
-            modelSceneNodeHP?.isHidden = true
-            modelSceneNodeRed?.isHidden = true
-        } else if modelSceneNodeOpenRed?.isHidden == false || modelSceneNodeOpenHP?.isHidden == false {
-            modelSceneNodeOpen?.isHidden = false
-            modelSceneNodeOpenHP?.isHidden = true
-            modelSceneNodeOpenRed?.isHidden = true
-        }
+        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.gray
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.gray
+    }
+    
+    @IBAction func ChangeColorGreen(_ sender: UIButton) {
+        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
+    }
+    
+    
+    @IBAction func ChangeColorYellow(_ sender: UIButton) {
+        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+    }
+    
+    
+    @IBAction func ChangeColorWhite(_ sender: UIButton) {
+        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
     }
     
     // MARK: - ARSCNViewDelegate
