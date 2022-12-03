@@ -14,13 +14,18 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-//    @IBOutlet weak var ChooseColor: UIColorWell!
+    
+    @IBOutlet var ColorHandle: UIColorWell!
     
     var modelScene: SCNScene?
     var modelSceneNode: SCNNode?
     
     var modelSceneOpen: SCNScene?
     var modelSceneNodeOpen: SCNNode?
+    
+    // Loading animated ibon case
+    var modelSceneAnim: SCNScene?
+    var modelSceneNodeAnim: SCNNode?
     
     var counter: Double = 0.01;
     var rotateX: Float = 1.5
@@ -55,9 +60,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         modelSceneNode?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
         modelSceneNode?.position.x = -1
         modelSceneNode?.position.y = -1
-        
-//        Change color of material CASE CLOSED
-//        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
+//        modelSceneNode?.scale = SCNVector3(x: 0.005, y: 0.005, z: 0.005)
 
         scene.rootNode.addChildNode(modelSceneNode!);
 
@@ -67,9 +70,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         modelSceneNodeOpen?.position.x = -1
         modelSceneNodeOpen?.position.y = -1
         modelSceneNodeOpen?.isHidden = true
-        
-//        Change color of material CASE CLOSED
-//        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
 
         scene.rootNode.addChildNode(modelSceneNodeOpen!);
         
@@ -158,7 +158,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func sliderScale(_ sender: UISlider) {
         sender.minimumValue = 0.001
         sender.maximumValue = 0.021
-        print(sender.value)
         modelSceneNode?.scale = SCNVector3(sender.value, sender.value, sender.value);
         modelSceneNodeOpen?.scale = SCNVector3(sender.value, sender.value, sender.value);
     }
@@ -167,9 +166,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func SliderRotation(_ sender: UISlider) {
         sender.minimumValue = 0
         sender.maximumValue = 6.2
-        print(sender.value)
-        modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 0, y: sender.value, z: 0)
+        modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: 0, z: sender.value)
+        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 0, y: 0, z: sender.value)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -190,13 +188,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func OpenCase(_ sender: UITapGestureRecognizer) {
-        if modelSceneNode?.isHidden == true && modelSceneNodeOpen?.isHidden == false {
-            modelSceneNode?.isHidden = false
-            modelSceneNodeOpen?.isHidden = true
-        } else {
-            modelSceneNode?.isHidden = true
-            modelSceneNodeOpen?.isHidden = false
-        }
+//        if modelSceneNode?.isHidden == true && modelSceneNodeOpen?.isHidden == false {
+//            modelSceneNode?.isHidden = false
+//            modelSceneNodeOpen?.isHidden = true
+//        } else {
+//            modelSceneNode?.isHidden = true
+//            modelSceneNodeOpen?.isHidden = false
+//        }
     }
     
     
@@ -232,6 +230,35 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
         modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
     }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.location(in: self.view)
+        print(location.x, location.y)
+//        print(modelSceneNode?.childNodes[21].childNodes[2].childNodes[1].childNodes[0].position.x)
+
+        let results = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
+        // PY_M_01_1534_58_2_38_65_G1 shell_1_8_
+        
+        if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
+            print("je klikt op de case")
+        }
+        
+        let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
+        
+        for nameArr in nameArrs {
+            if results[0].node.name == nameArr {
+                print(nameArr)
+            }
+        }
+    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let touch = touches.first!
+//        let location = touch.location(in: self.view)
+////        print(location.x, location.y)
+//    }
     
     // MARK: - ARSCNViewDelegate
     
