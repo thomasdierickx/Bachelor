@@ -61,6 +61,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         modelSceneNode?.position.x = -1
         modelSceneNode?.position.y = -1
         modelSceneNode?.position.z = -3
+        modelSceneNode?.isHidden = true
 
         scene.rootNode.addChildNode(modelSceneNode!);
 
@@ -76,42 +77,49 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create 3D text
         let text = SCNText(string: "Samsonite IBON", extrusionDepth: 2);
+        text.font = UIFont(name: "Helvetica", size: 10)
         let bodyText = SCNText(string: "De IBON collectie, gelanceerd in 2021, is een pionier \n op het gebied van innovatie en design. De opening bevindt \n zich aan de voorkant van de koffer, waardoor de oppervlakte \n die de valies inneemt hetzelfde blijft wanneer deze geopend is. \n Alle spullen van de reiziger blijven veilig opgeborgen dankzij de \n eenpuntssluiting met geïntegreerd TSA-slot.", extrusionDepth: 1)
+        bodyText.font = UIFont(name: "Helvetica", size: 10)
         
         // Intro
         // Create & Add color
         let material = SCNMaterial();
         material.diffuse.contents = UIColor.red;
-        material.diffuse.contents = UIFont.systemFont(ofSize: 34, weight: UIFont.Weight.black)
         text.materials = [material];
         // Creates node object & positions it
         node.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         node.position.z = -3
+        node.position.y = +1
         node.geometry = text;
+        node.isHidden = true
         
         let materialWhite = SCNMaterial();
         materialWhite.diffuse.contents = UIColor.white;
-        material.diffuse.contents = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         bodyText.materials = [materialWhite]
         nodeBodyText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
-        nodeBodyText.position.y = -1;
+        nodeBodyText.position.y = +0.3;
         nodeBodyText.position.z = -3
         nodeBodyText.geometry = bodyText;
+        nodeBodyText.isHidden = true
         
         // Part 1
         let titleInstr = SCNText(string: "Instructions", extrusionDepth: 2);
         titleInstr.materials = [material];
+        titleInstr.font = UIFont(name: "Helvetica", size: 10)
         nodeInstr.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         nodeInstr.position.y = -50;
         nodeInstr.position.z = -3
         nodeInstr.geometry = titleInstr;
+        nodeInstr.isHidden = true
         
         let bodyInstrText = SCNText(string: "Swipe right for next text \n Swipe left for previous text \n Move slider to see the real life size \n Tap to change the colors \n Click on the lock to open it \n Experiment and enjoy!", extrusionDepth: 1)
         bodyInstrText.materials = [materialWhite]
+        bodyInstrText.font = UIFont(name: "Helvetica", size: 10)
         nodeInstrText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
-        nodeInstrText.position.y = -51;
+        nodeInstrText.position.y = -50.7;
         nodeInstrText.position.z = -3
         nodeInstrText.geometry = bodyInstrText;
+        nodeInstrText.isHidden = true
         
         // Set the scene & elements to the view
         sceneView.scene = scene
@@ -129,6 +137,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.addGestureRecognizer(leftSwipe)
         sceneView.addGestureRecognizer(rightSwipe)
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -138,7 +147,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 self.hud.label.text = "Plane Detected"
                 self.hud.hide(animated: true, afterDelay: 1.0)
             }
+            OnlyLoadWhenPlaneLoads()
         }
+    }
+    
+    func OnlyLoadWhenPlaneLoads() {
+        
+        modelSceneNode?.isHidden = false
+        node.isHidden = false
+        nodeBodyText.isHidden = false
+        nodeInstr.isHidden = false
+        nodeInstrText.isHidden = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -181,27 +201,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         switch sender.direction{
             case .left:
                 for arrNode in arrNodes {
-                    arrNode.position.y = arrNode.position.y - 50
+                    arrNode.position.y = arrNode.position.y - 51
                 }
             case .right:
                 for arrNode in arrNodes {
-                    arrNode.position.y = arrNode.position.y + 50
+                    arrNode.position.y = arrNode.position.y + 51
                 }
             default://default
                 print("default")
             }
     }
-    
-    @IBAction func OpenCase(_ sender: UITapGestureRecognizer) {
-//        if modelSceneNode?.isHidden == true && modelSceneNodeOpen?.isHidden == false {
-//            modelSceneNode?.isHidden = false
-//            modelSceneNodeOpen?.isHidden = true
-//        } else {
-//            modelSceneNode?.isHidden = true
-//            modelSceneNodeOpen?.isHidden = false
-//        }
-    }
-    
     
     @IBAction func ChangeColor(_ sender: UIButton) {
         modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.systemPink
