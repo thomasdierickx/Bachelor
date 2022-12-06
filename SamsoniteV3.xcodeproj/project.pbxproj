@@ -22,6 +22,8 @@
 		E0C6919A29365D94000C6464 /* IbonOpen.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0C6919929365D94000C6464 /* IbonOpen.dae */; };
 		E0E343242938DA98002218E3 /* IbonClosed.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E343232938DA98002218E3 /* IbonClosed.dae */; };
 		E0E34333293A3B83002218E3 /* IbonOpenAnim.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E34332293A3B83002218E3 /* IbonOpenAnim.dae */; };
+		E0E34337293C105D002218E3 /* IbonClosedSmall.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E34335293C105D002218E3 /* IbonClosedSmall.dae */; };
+		E0E3433B293F4111002218E3 /* IbonOpenSmall.dae in Resources */ = {isa = PBXBuildFile; fileRef = E0E3433A293F4111002218E3 /* IbonOpenSmall.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		E0C6919929365D94000C6464 /* IbonOpen.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonOpen.dae; sourceTree = "<group>"; };
 		E0E343232938DA98002218E3 /* IbonClosed.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonClosed.dae; sourceTree = "<group>"; };
 		E0E34332293A3B83002218E3 /* IbonOpenAnim.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonOpenAnim.dae; sourceTree = "<group>"; };
+		E0E34335293C105D002218E3 /* IbonClosedSmall.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonClosedSmall.dae; sourceTree = "<group>"; };
+		E0E3433A293F4111002218E3 /* IbonOpenSmall.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IbonOpenSmall.dae; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,8 @@
 				E0C6919929365D94000C6464 /* IbonOpen.dae */,
 				E0E343232938DA98002218E3 /* IbonClosed.dae */,
 				E0E34332293A3B83002218E3 /* IbonOpenAnim.dae */,
+				E0E34335293C105D002218E3 /* IbonClosedSmall.dae */,
+				E0E3433A293F4111002218E3 /* IbonOpenSmall.dae */,
 				E0C691782934F19B000C6464 /* SamsoniteV3-Bridging-Header.h */,
 				E0C691792934F19B000C6464 /* SamsoniteV3Tests-Bridging-Header.h */,
 				E0C6917A2934F19B000C6464 /* SamsoniteV3UITests-Bridging-Header.h */,
@@ -292,7 +298,9 @@
 				E0C691452930F589000C6464 /* Assets.xcassets in Resources */,
 				E0C6919A29365D94000C6464 /* IbonOpen.dae in Resources */,
 				E0C691432930F587000C6464 /* Main.storyboard in Resources */,
+				E0E34337293C105D002218E3 /* IbonClosedSmall.dae in Resources */,
 				E0E343242938DA98002218E3 /* IbonClosed.dae in Resources */,
+				E0E3433B293F4111002218E3 /* IbonOpenSmall.dae in Resources */,
 				E0E34333293A3B83002218E3 /* IbonOpenAnim.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

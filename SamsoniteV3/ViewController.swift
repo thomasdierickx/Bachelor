@@ -29,7 +29,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var counter: Double = 0.01;
     var rotateX: Float = 1.5
-    var rotateY: Float = 0
+    var rotateY: Float = 2.5
     var rotateZ: Float = 0
     
     // Intro
@@ -55,20 +55,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a new scene
         let scene = SCNScene();
-        modelScene = SCNScene(named: "IbonClosed.dae");
+        modelScene = SCNScene(named: "IbonClosedSmall.dae");
         modelSceneNode = modelScene?.rootNode.childNode(withName: "IBON", recursively: true)
         modelSceneNode?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
         modelSceneNode?.position.x = -1
         modelSceneNode?.position.y = -1
-//        modelSceneNode?.scale = SCNVector3(x: 0.005, y: 0.005, z: 0.005)
+        modelSceneNode?.position.z = -3
 
         scene.rootNode.addChildNode(modelSceneNode!);
 
-        modelSceneOpen = SCNScene(named: "IbonOpen.dae");
+        modelSceneOpen = SCNScene(named: "IbonOpenSmall.dae");
         modelSceneNodeOpen = modelSceneOpen?.rootNode.childNode(withName: "IBON", recursively: true)
         modelSceneNodeOpen?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
         modelSceneNodeOpen?.position.x = -1
         modelSceneNodeOpen?.position.y = -1
+        modelSceneNodeOpen?.position.z = -3
         modelSceneNodeOpen?.isHidden = true
 
         scene.rootNode.addChildNode(modelSceneNodeOpen!);
@@ -85,6 +86,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         text.materials = [material];
         // Creates node object & positions it
         node.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
+        node.position.z = -3
         node.geometry = text;
         
         let materialWhite = SCNMaterial();
@@ -93,6 +95,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         bodyText.materials = [materialWhite]
         nodeBodyText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
         nodeBodyText.position.y = -1;
+        nodeBodyText.position.z = -3
         nodeBodyText.geometry = bodyText;
         
         // Part 1
@@ -100,12 +103,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         titleInstr.materials = [material];
         nodeInstr.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         nodeInstr.position.y = -50;
+        nodeInstr.position.z = -3
         nodeInstr.geometry = titleInstr;
         
         let bodyInstrText = SCNText(string: "Swipe right for next text \n Swipe left for previous text \n Move slider to see the real life size \n Tap to change the colors \n Click on the lock to open it \n Experiment and enjoy!", extrusionDepth: 1)
         bodyInstrText.materials = [materialWhite]
         nodeInstrText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
         nodeInstrText.position.y = -51;
+        nodeInstrText.position.z = -3
         nodeInstrText.geometry = bodyInstrText;
         
         // Set the scene & elements to the view
@@ -166,8 +171,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func SliderRotation(_ sender: UISlider) {
         sender.minimumValue = 0
         sender.maximumValue = 6.2
-        modelSceneNode?.eulerAngles = SCNVector3(x: 0, y: 0, z: sender.value)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 0, y: 0, z: sender.value)
+        modelSceneNode?.eulerAngles = SCNVector3(x: 1.5, y: sender.value, z: 0)
+        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 1.5, y: sender.value, z: 0)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -236,29 +241,57 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let touch = touches.first!
         let location = touch.location(in: self.view)
         print(location.x, location.y)
-//        print(modelSceneNode?.childNodes[21].childNodes[2].childNodes[1].childNodes[0].position.x)
 
         let results = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
-        // PY_M_01_1534_58_2_38_65_G1 shell_1_8_
         
-        if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
-            print("je klikt op de case")
-        }
-        
-        let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
-        
-        for nameArr in nameArrs {
-            if results[0].node.name == nameArr {
-                print(nameArr)
+        let resultsOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
+        if modelSceneNode?.isHidden == false {
+            if !results.isEmpty || !resultsOpen.isEmpty {
+                // Closed Case
+                if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
+                    print("je klikt op de case")
+                }
+                
+                if results[0].node.name != "Lock" {
+                    modelSceneNode?.isHidden = true
+                    modelSceneNodeOpen?.isHidden = false
+                }
+                
+                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
+                
+                for nameArr in nameArrs {
+                    if results[0].node.name == nameArr {
+                        print(nameArr)
+                    }
+                }
+            } else {
+                print("je klikt op de zever")
+            }
+        } else if modelSceneNodeOpen?.isHidden == false {
+            if !resultsOpen.isEmpty {
+                // Open Case
+                
+                if resultsOpen[0].node.name != "CaseLeft" || resultsOpen[0].node.name != "CaseRight" {
+                    print("je klikt op de case")
+                }
+                
+                if resultsOpen[0].node.name != "Lock" {
+                    modelSceneNode?.isHidden = false
+                    modelSceneNodeOpen?.isHidden = true
+                }
+                
+                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
+                
+                for nameArr in nameArrs {
+                    if resultsOpen[0].node.name == nameArr {
+                        print(nameArr)
+                    }
+                }
+            } else {
+                print("je klikt op de zever")
             }
         }
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let touch = touches.first!
-//        let location = touch.location(in: self.view)
-////        print(location.x, location.y)
-//    }
     
     // MARK: - ARSCNViewDelegate
     
