@@ -11,7 +11,7 @@ import SceneKit.ModelIO
 import ARKit
 
 @available(iOS 14.0, *)
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -27,17 +27,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var modelSceneAnim: SCNScene?
     var modelSceneNodeAnim: SCNNode?
     
-    var counter: Double = 0.01;
-    var rotateX: Float = 1.5
-    var rotateY: Float = 2.5
-    var rotateZ: Float = 0
-    
     // Intro
     var node: SCNNode = SCNNode();
     var nodeBodyText: SCNNode = SCNNode();
     // Part 1
     var nodeInstr: SCNNode = SCNNode();
     var nodeInstrText: SCNNode = SCNNode();
+    
+    var lastPanLocation: SCNVector3?
+    var panStartZ: CGFloat?
+    var geometryNode: SCNNode = SCNNode()
     
     private var hud: MBProgressHUD!
     
@@ -55,30 +54,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a new scene
         let scene = SCNScene();
-        modelScene = SCNScene(named: "IbonClosedSmall.dae");
+        modelScene = SCNScene(named: "art.scnassets/IbonClosedSmall.scn");
         modelSceneNode = modelScene?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNode?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
-        modelSceneNode?.position.x = -1
-        modelSceneNode?.position.y = -1
-        modelSceneNode?.position.z = -3
         modelSceneNode?.isHidden = true
 
         scene.rootNode.addChildNode(modelSceneNode!);
 
-        modelSceneOpen = SCNScene(named: "IbonOpenSmall.dae");
+        modelSceneOpen = SCNScene(named: "art.scnassets/IbonOpenSmall.scn");
         modelSceneNodeOpen = modelSceneOpen?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: rotateX, y: rotateY, z: rotateZ)
-        modelSceneNodeOpen?.position.x = -1
-        modelSceneNodeOpen?.position.y = -1
-        modelSceneNodeOpen?.position.z = -3
         modelSceneNodeOpen?.isHidden = true
+        
+        modelSceneNode?.childNodes[9].childNodes[3].geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
 
         scene.rootNode.addChildNode(modelSceneNodeOpen!);
         
         // Create 3D text
-        let text = SCNText(string: "Samsonite IBON", extrusionDepth: 2);
+        let text = SCNText(string: "Hello!", extrusionDepth: 2);
         text.font = UIFont(name: "Helvetica", size: 10)
-        let bodyText = SCNText(string: "De IBON collectie, gelanceerd in 2021, is een pionier \n op het gebied van innovatie en design. De opening bevindt \n zich aan de voorkant van de koffer, waardoor de oppervlakte \n die de valies inneemt hetzelfde blijft wanneer deze geopend is. \n Alle spullen van de reiziger blijven veilig opgeborgen dankzij de \n eenpuntssluiting met geïntegreerd TSA-slot.", extrusionDepth: 1)
+        let bodyText = SCNText(string: "I'm the new Samsonite case called Ibon. I can \n practically fit anywhere or you can even fit anything inside of me! \n Go ahead and give it a try. Touch the \n lock to open me. You can also drag me \n everywhere you want!", extrusionDepth: 1)
         bodyText.font = UIFont(name: "Helvetica", size: 10)
         
         // Intro
@@ -89,7 +83,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Creates node object & positions it
         node.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         node.position.z = -3
-        node.position.y = +1
         node.geometry = text;
         node.isHidden = true
         
@@ -97,7 +90,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         materialWhite.diffuse.contents = UIColor.white;
         bodyText.materials = [materialWhite]
         nodeBodyText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
-        nodeBodyText.position.y = +0.3;
+        nodeBodyText.position.y = -0.7;
         nodeBodyText.position.z = -3
         nodeBodyText.geometry = bodyText;
         nodeBodyText.isHidden = true
@@ -138,10 +131,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.addGestureRecognizer(leftSwipe)
         sceneView.addGestureRecognizer(rightSwipe)
         
+        // Add pan gesture for dragging the textNode about
+        sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
+    
         if anchor is ARPlaneAnchor {
             DispatchQueue.main.async {
                 self.hud.label.text = "Plane Detected"
@@ -179,15 +174,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    
-    @IBAction func sliderScale(_ sender: UISlider) {
-        sender.minimumValue = 0.001
-        sender.maximumValue = 0.021
-        modelSceneNode?.scale = SCNVector3(sender.value, sender.value, sender.value);
-        modelSceneNodeOpen?.scale = SCNVector3(sender.value, sender.value, sender.value);
-    }
-    
-    
     @IBAction func SliderRotation(_ sender: UISlider) {
         sender.minimumValue = 0
         sender.maximumValue = 6.2
@@ -212,58 +198,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
     }
     
-    @IBAction func ChangeColor(_ sender: UIButton) {
-        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.systemPink
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.systemPink
-    }
-    
-    
-    @IBAction func ChangeColorRed(_ sender: UIButton) {
-        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.red
-    }
-    
-    @IBAction func ChangeColorGrey(_ sender: UIButton) {
-        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.gray
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.gray
-    }
-    
-    @IBAction func ChangeColorGreen(_ sender: UIButton) {
-        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.green
-    }
-    
-    
-    @IBAction func ChangeColorYellow(_ sender: UIButton) {
-        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
-    }
-    
-    
-    @IBAction func ChangeColorWhite(_ sender: UIButton) {
-        modelSceneNode?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
-    }
-    
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let location = touch.location(in: self.view)
         print(location.x, location.y)
-
+        
         let results = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
         
         let resultsOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
+        
         if modelSceneNode?.isHidden == false {
-            if !results.isEmpty || !resultsOpen.isEmpty {
-                // Closed Case
+            if !results.isEmpty {
                 if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
                     print("je klikt op de case")
                 }
                 
                 if results[0].node.name != "Lock" {
                     modelSceneNode?.isHidden = true
+                    let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+                    loadingNotification.mode = MBProgressHUDMode.determinate
+                    loadingNotification.label.text = "Good job, the case is open!"
                     modelSceneNodeOpen?.isHidden = false
+                    loadingNotification.hide(animated: true, afterDelay: 1.0)
                 }
                 
                 let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
@@ -274,19 +230,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     }
                 }
             } else {
-                print("je klikt op de zever")
+                print("je object bestaat niet")
             }
-        } else if modelSceneNodeOpen?.isHidden == false {
+        }
+        
+        if modelSceneNodeOpen?.isHidden == false {
             if !resultsOpen.isEmpty {
-                // Open Case
-                
                 if resultsOpen[0].node.name != "CaseLeft" || resultsOpen[0].node.name != "CaseRight" {
                     print("je klikt op de case")
                 }
                 
                 if resultsOpen[0].node.name != "Lock" {
                     modelSceneNode?.isHidden = false
+                    let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+                    loadingNotification.mode = MBProgressHUDMode.determinate
+                    loadingNotification.label.text = "Good job, the case is closed!"
                     modelSceneNodeOpen?.isHidden = true
+                    loadingNotification.hide(animated: true, afterDelay: 1.0)
                 }
                 
                 let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
@@ -297,13 +257,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                     }
                 }
             } else {
-                print("je klikt op de zever")
+                print("je object bestaat niet Open")
             }
         }
     }
     
-    // MARK: - ARSCNViewDelegate
     
+    @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
+
+        gesture.minimumNumberOfTouches = 1
+
+        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
+        guard let result: ARHitTestResult = results.first else {
+            return
+        }
+
+        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
+        modelSceneNode?.position = position
+        modelSceneNodeOpen?.position = position
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
