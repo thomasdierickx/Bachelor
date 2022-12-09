@@ -23,9 +23,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     var modelSceneOpen: SCNScene?
     var modelSceneNodeOpen: SCNNode?
     
-    // Loading animated ibon case
-    var modelSceneAnim: SCNScene?
-    var modelSceneNodeAnim: SCNNode?
+    var modelCar: SCNScene?
+    var modelCarNode: SCNNode?
+    var nodeCarText: SCNNode = SCNNode();
     
     // Intro
     var node: SCNNode = SCNNode();
@@ -37,6 +37,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     var lastPanLocation: SCNVector3?
     var panStartZ: CGFloat?
     var geometryNode: SCNNode = SCNNode()
+    
+    var configuration = ARWorldTrackingConfiguration()
     
     private var hud: MBProgressHUD!
     
@@ -69,22 +71,41 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
         scene.rootNode.addChildNode(modelSceneNodeOpen!);
         
+        modelCar = SCNScene(named: "art.scnassets/Car.scn");
+        modelCarNode = modelCar?.rootNode.childNode(withName: "Car", recursively: true)
+        modelCarNode?.isHidden = true
+        modelCarNode?.position.z = -3
+        
+        
+        scene.rootNode.addChildNode(modelCarNode!)
+        
         // Create 3D text
         let text = SCNText(string: "Hello!", extrusionDepth: 2);
         text.font = UIFont(name: "Helvetica", size: 10)
         let bodyText = SCNText(string: "I'm the new Samsonite case called Ibon. I can \n practically fit anywhere or you can even fit anything inside of me! \n Go ahead and give it a try. Touch the \n lock to open me. You can also drag me \n everywhere you want!", extrusionDepth: 1)
         bodyText.font = UIFont(name: "Helvetica", size: 10)
         
+        let carText = SCNText(string: "Do i fit in here?", extrusionDepth: 2)
+        carText.font = UIFont(name: "Helvetica", size: 10)
+        
         // Intro
         // Create & Add color
         let material = SCNMaterial();
         material.diffuse.contents = UIColor.red;
         text.materials = [material];
+        carText.materials = [material]
+        
         // Creates node object & positions it
         node.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         node.position.z = -3
         node.geometry = text;
         node.isHidden = true
+        
+        nodeCarText.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
+        nodeCarText.position = SCNVector3(x: -9, y: 1.5, z: -1.5)
+        nodeCarText.eulerAngles = SCNVector3(0, 2.0, 0)
+        nodeCarText.geometry = carText;
+        nodeCarText.isHidden = true
         
         let materialWhite = SCNMaterial();
         materialWhite.diffuse.contents = UIColor.white;
@@ -121,6 +142,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.scene.rootNode.addChildNode(nodeBodyText);
         sceneView.scene.rootNode.addChildNode(nodeInstr);
         sceneView.scene.rootNode.addChildNode(nodeInstrText);
+        sceneView.scene.rootNode.addChildNode(nodeCarText)
         
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(Swiping(_:)))
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(Swiping(_:)))
@@ -153,6 +175,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         nodeBodyText.isHidden = false
         nodeInstr.isHidden = false
         nodeInstrText.isHidden = false
+        modelCarNode?.isHidden = false
+        nodeCarText.isHidden = false
         
     }
     
@@ -160,7 +184,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
 
         // Run the view's session
@@ -177,8 +200,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     @IBAction func SliderRotation(_ sender: UISlider) {
         sender.minimumValue = 0
         sender.maximumValue = 6.2
-        modelSceneNode?.eulerAngles = SCNVector3(x: 1.5, y: sender.value, z: 0)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 1.5, y: sender.value, z: 0)
+        modelSceneNode?.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
+        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -211,15 +234,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             if !results.isEmpty {
                 if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
                     print("je klikt op de case")
-                }
-                
-                if results[0].node.name != "Lock" {
-                    modelSceneNode?.isHidden = true
-                    let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
-                    loadingNotification.mode = MBProgressHUDMode.determinate
-                    loadingNotification.label.text = "Good job, the case is open!"
-                    modelSceneNodeOpen?.isHidden = false
-                    loadingNotification.hide(animated: true, afterDelay: 1.0)
                 }
                 
                 let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
@@ -275,6 +289,37 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
         modelSceneNode?.position = position
         modelSceneNodeOpen?.position = position
+    }
+    
+    
+    @IBAction func ResetScene(_ sender: UIButton) {
+        sceneView.session.pause()
+            sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+                node.removeFromParentNode()
+            }
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        viewDidLoad()
+    }
+    
+    
+    @IBAction func OpenCloseCase(_ sender: UIButton) {
+        if modelSceneNode?.isHidden == false {
+            modelSceneNode?.isHidden = true
+            let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.determinate
+            loadingNotification.label.text = "Good job, the case is open!"
+            modelSceneNodeOpen?.isHidden = false
+            loadingNotification.hide(animated: true, afterDelay: 1.0)
+            sender.setTitle("CLOSE ME", for: .normal)
+        } else {
+            modelSceneNodeOpen?.isHidden = true
+            let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.determinate
+            loadingNotification.label.text = "Good job, the case is closed!"
+            modelSceneNode?.isHidden = false
+            loadingNotification.hide(animated: true, afterDelay: 1.0)
+            sender.setTitle("OPEN ME", for: .normal)
+        }
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
