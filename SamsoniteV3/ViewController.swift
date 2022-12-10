@@ -221,74 +221,74 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        let location = touch.location(in: self.view)
-        print(location.x, location.y)
-        
-        let results = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
-        
-        let resultsOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
-        
-        if modelSceneNode?.isHidden == false {
-            if !results.isEmpty {
-                if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
-                    print("je klikt op de case")
-                }
-                
-                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
-                
-                for nameArr in nameArrs {
-                    if results[0].node.name == nameArr {
-                        print(nameArr)
-                    }
-                }
-            } else {
-                print("je object bestaat niet")
-            }
-        }
-        
-        if modelSceneNodeOpen?.isHidden == false {
-            if !resultsOpen.isEmpty {
-                if resultsOpen[0].node.name != "CaseLeft" || resultsOpen[0].node.name != "CaseRight" {
-                    print("je klikt op de case")
-                }
-                
-                if resultsOpen[0].node.name != "Lock" {
-                    modelSceneNode?.isHidden = false
-                    let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
-                    loadingNotification.mode = MBProgressHUDMode.determinate
-                    loadingNotification.label.text = "Good job, the case is closed!"
-                    modelSceneNodeOpen?.isHidden = true
-                    loadingNotification.hide(animated: true, afterDelay: 1.0)
-                }
-                
-                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
-                
-                for nameArr in nameArrs {
-                    if resultsOpen[0].node.name == nameArr {
-                        print(nameArr)
-                    }
-                }
-            } else {
-                print("je object bestaat niet Open")
-            }
-        }
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let touch = touches.first!
+//        let location = touch.location(in: self.view)
+//        print(location.x, location.y)
+//
+//        let results = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
+//
+//        let resultsOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
+//
+//        if modelSceneNode?.isHidden == false {
+//            if !results.isEmpty {
+//                if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
+////                    print("je klikt op de case")
+//                }
+//
+//                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
+//
+//                for nameArr in nameArrs {
+//                    if results[0].node.name == nameArr {
+////                        print(nameArr)
+//                    }
+//                }
+//            } else {
+////                print("je object bestaat niet")
+//            }
+//        }
+//
+//        if modelSceneNodeOpen?.isHidden == false {
+//            if !resultsOpen.isEmpty {
+//                if resultsOpen[0].node.name != "CaseLeft" || resultsOpen[0].node.name != "CaseRight" {
+////                    print("je klikt op de case")
+//                }
+//
+//                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
+//
+//                for nameArr in nameArrs {
+//                    if resultsOpen[0].node.name == nameArr {
+////                        print(nameArr)
+//                    }
+//                }
+//            } else {
+////                print("je object bestaat niet Open")
+//            }
+//        }
+//    }
     
     
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
 
-        gesture.minimumNumberOfTouches = 1
+        gesture.minimumNumberOfTouches = 2
 
         let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
         guard let result: ARHitTestResult = results.first else {
             return
         }
-
+        
+        let oldPos = modelSceneNode?.position
+        let oldPosOpen = modelSceneNodeOpen?.position
+        
         let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
-        modelSceneNode?.position = position
-        modelSceneNodeOpen?.position = position
+        
+        if !results.isEmpty {
+            modelSceneNode?.position = position
+            modelSceneNodeOpen?.position = position
+        } else {
+            modelSceneNode?.position = oldPos!
+            modelSceneNodeOpen?.position = oldPosOpen!
+        }
     }
     
     
@@ -305,21 +305,41 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     @IBAction func OpenCloseCase(_ sender: UIButton) {
         if modelSceneNode?.isHidden == false {
             modelSceneNode?.isHidden = true
-            let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.determinate
+            let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.customView
             loadingNotification.label.text = "Good job, the case is open!"
             modelSceneNodeOpen?.isHidden = false
             loadingNotification.hide(animated: true, afterDelay: 1.0)
             sender.setTitle("CLOSE ME", for: .normal)
         } else {
             modelSceneNodeOpen?.isHidden = true
-            let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.determinate
+            let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.customView
             loadingNotification.label.text = "Good job, the case is closed!"
             modelSceneNode?.isHidden = false
             loadingNotification.hide(animated: true, afterDelay: 1.0)
             sender.setTitle("OPEN ME", for: .normal)
         }
+    }
+    
+    var objectRotation: Float {
+        get {
+            return (modelSceneNode?.childNodes.first!.eulerAngles.y)!
+        }
+        set (newValue) {
+            modelSceneNode?.childNodes.first!.eulerAngles.y = newValue
+        }
+    }
+    
+    @IBAction func RotateCase(_ sender: UIRotationGestureRecognizer) {
+        guard sender.state == .changed else { return }
+        
+        print(sender)
+        
+        modelSceneNode?.rotation.y += Float(sender.rotation)
+        modelSceneNodeOpen?.rotation.x += Float(sender.rotation)
+        
+        sender.rotation = 0
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

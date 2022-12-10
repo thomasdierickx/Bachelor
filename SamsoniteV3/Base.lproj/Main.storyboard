@@ -22,6 +22,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="RiO-uO-p9E" appends="YES" id="Ni7-Wy-MXc"/>
+                                    <outletCollection property="gestureRecognizers" destination="k6a-aa-2KH" appends="YES" id="D1O-Cs-t5j"/>
                                 </connections>
                             </arscnView>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dk-JC-14G">
@@ -81,6 +82,11 @@
                         <action selector="Swiping:" destination="BV1-FR-VrT" id="ITy-Lb-kcR"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <rotationGestureRecognizer id="k6a-aa-2KH">
+                    <connections>
+                        <action selector="RotateCase:" destination="BV1-FR-VrT" id="6GX-z2-1hM"/>
+                    </connections>
+                </rotationGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="20" y="3.333333333333333"/>
         </scene>
