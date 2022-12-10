@@ -76,7 +76,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         modelCarNode?.isHidden = true
         modelCarNode?.position.z = -3
         
-        
         scene.rootNode.addChildNode(modelCarNode!)
         
         // Create 3D text
@@ -201,7 +200,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sender.minimumValue = 0
         sender.maximumValue = 6.2
         modelSceneNode?.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
+        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -221,76 +220,26 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             }
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let touch = touches.first!
-//        let location = touch.location(in: self.view)
-//        print(location.x, location.y)
-//
-//        let results = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
-//
-//        let resultsOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
-//
-//        if modelSceneNode?.isHidden == false {
-//            if !results.isEmpty {
-//                if results[0].node.name != "CaseLeft" || results[0].node.name != "CaseRight" {
-////                    print("je klikt op de case")
-//                }
-//
-//                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
-//
-//                for nameArr in nameArrs {
-//                    if results[0].node.name == nameArr {
-////                        print(nameArr)
-//                    }
-//                }
-//            } else {
-////                print("je object bestaat niet")
-//            }
-//        }
-//
-//        if modelSceneNodeOpen?.isHidden == false {
-//            if !resultsOpen.isEmpty {
-//                if resultsOpen[0].node.name != "CaseLeft" || resultsOpen[0].node.name != "CaseRight" {
-////                    print("je klikt op de case")
-//                }
-//
-//                let nameArrs = ["HandleMiddleLeft", "HandleMiddleRight", "HandleTopLeft", "HandleTopRight", "ExtendHandle"]
-//
-//                for nameArr in nameArrs {
-//                    if resultsOpen[0].node.name == nameArr {
-////                        print(nameArr)
-//                    }
-//                }
-//            } else {
-////                print("je object bestaat niet Open")
-//            }
-//        }
-//    }
-    
-    
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
 
-        gesture.minimumNumberOfTouches = 2
+        gesture.minimumNumberOfTouches = 1
 
         let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
         guard let result: ARHitTestResult = results.first else {
             return
         }
         
+        let touchedCase = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
+        let touchedCaseOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
+        
         let oldPos = modelSceneNode?.position
         let oldPosOpen = modelSceneNodeOpen?.position
         
         let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
         
-        if !results.isEmpty {
-            modelSceneNode?.position = position
-            modelSceneNodeOpen?.position = position
-        } else {
-            modelSceneNode?.position = oldPos!
-            modelSceneNodeOpen?.position = oldPosOpen!
-        }
+        modelSceneNode?.position = position
+        modelSceneNodeOpen?.position = position
     }
-    
     
     @IBAction func ResetScene(_ sender: UIButton) {
         sceneView.session.pause()
@@ -300,7 +249,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         viewDidLoad()
     }
-    
     
     @IBAction func OpenCloseCase(_ sender: UIButton) {
         if modelSceneNode?.isHidden == false {
@@ -336,8 +284,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         print(sender)
         
-        modelSceneNode?.rotation.y += Float(sender.rotation)
-        modelSceneNodeOpen?.rotation.x += Float(sender.rotation)
+        modelSceneNode?.eulerAngles.y += Float(sender.rotation)
+        modelSceneNodeOpen?.eulerAngles.y += Float(sender.rotation)
         
         sender.rotation = 0
     }
