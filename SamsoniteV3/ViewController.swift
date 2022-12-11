@@ -15,8 +15,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
     @IBOutlet var sceneView: ARSCNView!
     
-    @IBOutlet var ColorHandle: UIColorWell!
-    
     var modelScene: SCNScene?
     var modelSceneNode: SCNNode?
     
@@ -33,10 +31,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     // Part 1
     var nodeInstr: SCNNode = SCNNode();
     var nodeInstrText: SCNNode = SCNNode();
-    
-    var lastPanLocation: SCNVector3?
-    var panStartZ: CGFloat?
-    var geometryNode: SCNNode = SCNNode()
     
     var configuration = ARWorldTrackingConfiguration()
     
@@ -221,24 +215,33 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     }
     
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
-
+        
         gesture.minimumNumberOfTouches = 1
+        
+        let raycastQuery: ARRaycastQuery? = sceneView.raycastQuery(
+                                                              from: sceneView.center,
+                                                          allowing: .estimatedPlane,
+                                                         alignment: .any)
 
-        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
-        guard let result: ARHitTestResult = results.first else {
-            return
+        let resultsRay: [ARRaycastResult] = sceneView.session.raycast(raycastQuery!)
+        
+        if !resultsRay.isEmpty {
+            let resultRay: [ARRaycastResult] = [resultsRay.first!]
+            
+            let posRay = SCNVector3Make(resultRay[0].worldTransform.columns.3.x, resultRay[0].worldTransform.columns.3.y, resultRay[0].worldTransform.columns.3.z)
+            
+            modelSceneNode?.position = posRay
+            modelSceneNodeOpen?.position = posRay
+        } else {
+            print("resultsRay is empty")
         }
-        
-        let touchedCase = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNode!])
-        let touchedCaseOpen = self.sceneView.hitTest(CGPoint(x: 0,y: 0), options: [SCNHitTestOption.rootNode: modelSceneNodeOpen!])
-        
-        let oldPos = modelSceneNode?.position
-        let oldPosOpen = modelSceneNodeOpen?.position
-        
-        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
-        
-        modelSceneNode?.position = position
-        modelSceneNodeOpen?.position = position
+
+//        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
+//        guard let result: ARHitTestResult = results.first else {
+//            return
+//        }
+
+//        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
     }
     
     @IBAction func ResetScene(_ sender: UIButton) {
