@@ -15,15 +15,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
     @IBOutlet var sceneView: ARSCNView!
     
-    var modelScene: SCNScene?
-    var modelSceneNode: SCNNode?
+    var modelScene: SCNScene = SCNScene()
+    var modelSceneNode: SCNNode = SCNNode()
     
-    var modelSceneOpen: SCNScene?
-    var modelSceneNodeOpen: SCNNode?
+    var modelSceneOpen: SCNScene = SCNScene()
+    var modelSceneNodeOpen: SCNNode = SCNNode()
     
-    var modelCar: SCNScene?
-    var modelCarNode: SCNNode?
     var nodeCarText: SCNNode = SCNNode();
+    
+    var modelGlobal: SCNScene = SCNScene()
+    var modelRoomNode: SCNNode = SCNNode();
+    var modelCarNode: SCNNode = SCNNode();
     
     // Intro
     var node: SCNNode = SCNNode();
@@ -50,27 +52,28 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         // Create a new scene
         let scene = SCNScene();
-        modelScene = SCNScene(named: "art.scnassets/IbonClosedSmall.scn");
-        modelSceneNode = modelScene?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNode?.isHidden = true
+        modelScene = SCNScene(named: "art.scnassets/IbonClosedSmall.scn")!;
+        modelSceneNode = modelScene.rootNode.childNode(withName: "IBON", recursively: true)!
+        modelSceneNode.isHidden = true
 
-        scene.rootNode.addChildNode(modelSceneNode!);
+        scene.rootNode.addChildNode(modelSceneNode);
 
-        modelSceneOpen = SCNScene(named: "art.scnassets/IbonOpenSmall.scn");
-        modelSceneNodeOpen = modelSceneOpen?.rootNode.childNode(withName: "IBON", recursively: true)
-        modelSceneNodeOpen?.isHidden = true
+        modelSceneOpen = SCNScene(named: "art.scnassets/IbonOpenSmall.scn")!;
+        modelSceneNodeOpen = modelSceneOpen.rootNode.childNode(withName: "IBON", recursively: true)!
+        modelSceneNodeOpen.isHidden = true
         
-        modelSceneNode?.childNodes[9].childNodes[3].geometry?.firstMaterial?.diffuse.contents = UIColor.white
-        modelSceneNodeOpen?.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        modelSceneNode.childNodes[9].childNodes[3].geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        modelSceneNodeOpen.childNodes[21].childNodes[8].childNodes[2].geometry?.firstMaterial?.diffuse.contents = UIColor.white
 
-        scene.rootNode.addChildNode(modelSceneNodeOpen!);
+        scene.rootNode.addChildNode(modelSceneNodeOpen);
         
-        modelCar = SCNScene(named: "art.scnassets/Car.scn");
-        modelCarNode = modelCar?.rootNode.childNode(withName: "Car", recursively: true)
-        modelCarNode?.isHidden = true
-        modelCarNode?.position.z = -3
+        modelGlobal = SCNScene(named: "art.scnassets/GlobalScene.scn")!
+        modelRoomNode = modelGlobal.rootNode.childNode(withName: "Hotelroom", recursively: true)!
+        modelCarNode = modelGlobal.rootNode.childNode(withName: "Car", recursively: true)!
         
-        scene.rootNode.addChildNode(modelCarNode!)
+        scene.rootNode.addChildNode(modelRoomNode)
+        scene.rootNode.addChildNode(modelCarNode)
+        
         
         // Create 3D text
         let text = SCNText(string: "Hello!", extrusionDepth: 2);
@@ -163,13 +166,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     
     func OnlyLoadWhenPlaneLoads() {
         
-        modelSceneNode?.isHidden = false
+        modelSceneNode.isHidden = false
         node.isHidden = false
         nodeBodyText.isHidden = false
         nodeInstr.isHidden = false
         nodeInstrText.isHidden = false
-        modelCarNode?.isHidden = false
+        modelCarNode.isHidden = false
         nodeCarText.isHidden = false
+        modelRoomNode.isHidden = false
         
     }
     
@@ -193,8 +197,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     @IBAction func SliderRotation(_ sender: UISlider) {
         sender.minimumValue = 0
         sender.maximumValue = 6.2
-        modelSceneNode?.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
-        modelSceneNodeOpen?.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
+        modelSceneNode.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
+        modelSceneNodeOpen.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
     }
     
     @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
@@ -230,8 +234,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             
             let posRay = SCNVector3Make(resultRay[0].worldTransform.columns.3.x, resultRay[0].worldTransform.columns.3.y, resultRay[0].worldTransform.columns.3.z)
             
-            modelSceneNode?.position = posRay
-            modelSceneNodeOpen?.position = posRay
+            modelSceneNode.position = posRay
+            modelSceneNodeOpen.position = posRay
         } else {
             print("resultsRay is empty")
         }
@@ -254,20 +258,20 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     }
     
     @IBAction func OpenCloseCase(_ sender: UIButton) {
-        if modelSceneNode?.isHidden == false {
-            modelSceneNode?.isHidden = true
+        if modelSceneNode.isHidden == false {
+            modelSceneNode.isHidden = true
             let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
             loadingNotification.mode = MBProgressHUDMode.customView
             loadingNotification.label.text = "Good job, the case is open!"
-            modelSceneNodeOpen?.isHidden = false
+            modelSceneNodeOpen.isHidden = false
             loadingNotification.hide(animated: true, afterDelay: 1.0)
             sender.setTitle("CLOSE ME", for: .normal)
         } else {
-            modelSceneNodeOpen?.isHidden = true
+            modelSceneNodeOpen.isHidden = true
             let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
             loadingNotification.mode = MBProgressHUDMode.customView
             loadingNotification.label.text = "Good job, the case is closed!"
-            modelSceneNode?.isHidden = false
+            modelSceneNode.isHidden = false
             loadingNotification.hide(animated: true, afterDelay: 1.0)
             sender.setTitle("OPEN ME", for: .normal)
         }
@@ -275,10 +279,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     
     var objectRotation: Float {
         get {
-            return (modelSceneNode?.childNodes.first!.eulerAngles.y)!
+            return (modelSceneNode.childNodes.first!.eulerAngles.y)
         }
         set (newValue) {
-            modelSceneNode?.childNodes.first!.eulerAngles.y = newValue
+            modelSceneNode.childNodes.first!.eulerAngles.y = newValue
         }
     }
     
@@ -287,8 +291,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         print(sender)
         
-        modelSceneNode?.eulerAngles.y += Float(sender.rotation)
-        modelSceneNodeOpen?.eulerAngles.y += Float(sender.rotation)
+        modelSceneNode.eulerAngles.y += Float(sender.rotation)
+        modelSceneNodeOpen.eulerAngles.y += Float(sender.rotation)
         
         sender.rotation = 0
     }
