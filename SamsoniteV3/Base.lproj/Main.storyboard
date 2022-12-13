@@ -26,13 +26,13 @@
                                 </connections>
                             </arscnView>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dk-JC-14G">
-                                <rect key="frame" x="614" y="42" width="176" height="35"/>
+                                <rect key="frame" x="723" y="42" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <rect key="contentStretch" x="0.0" y="0.14999999999999999" width="0.0" height="1"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Reset scene"/>
+                                <buttonConfiguration key="configuration" style="gray" title=""/>
                                 <connections>
                                     <action selector="ResetScene:" destination="BV1-FR-VrT" eventType="touchUpInside" id="5dV-Ql-z8e"/>
                                 </connections>
@@ -62,6 +62,11 @@
                                     <action selector="SliderRotation:" destination="BV1-FR-VrT" eventType="valueChanged" id="DoN-1s-9a4"/>
                                 </connections>
                             </slider>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="arrow.triangle.2.circlepath" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="34N-94-QC7">
+                                <rect key="frame" x="731" y="48.5" width="50" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -93,6 +98,7 @@
     </scenes>
     <color key="tintColor" red="0.15939827957332298" green="0.28976537320909002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
+        <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -52,14 +52,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         // Create a new scene
         let scene = SCNScene();
-        modelScene = SCNScene(named: "art.scnassets/IbonClosedSmall.scn")!;
-        modelSceneNode = modelScene.rootNode.childNode(withName: "IBON", recursively: true)!
+        modelGlobal = SCNScene(named: "art.scnassets/GlobalScene.scn")!
+        modelSceneNode = modelGlobal.rootNode.childNode(withName: "IBON", recursively: true)!
         modelSceneNode.isHidden = true
 
         scene.rootNode.addChildNode(modelSceneNode);
 
-        modelSceneOpen = SCNScene(named: "art.scnassets/IbonOpenSmall.scn")!;
-        modelSceneNodeOpen = modelSceneOpen.rootNode.childNode(withName: "IBON", recursively: true)!
+        modelSceneNodeOpen = modelGlobal.rootNode.childNode(withName: "IBONOPEN", recursively: true)!
         modelSceneNodeOpen.isHidden = true
         
         modelSceneNode.childNodes[9].childNodes[3].geometry?.firstMaterial?.diffuse.contents = UIColor.white
@@ -67,9 +66,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
         scene.rootNode.addChildNode(modelSceneNodeOpen);
         
-        modelGlobal = SCNScene(named: "art.scnassets/GlobalScene.scn")!
         modelRoomNode = modelGlobal.rootNode.childNode(withName: "Hotelroom", recursively: true)!
+        modelRoomNode.isHidden = true
         modelCarNode = modelGlobal.rootNode.childNode(withName: "Car", recursively: true)!
+        modelCarNode.isHidden = true
         
         scene.rootNode.addChildNode(modelRoomNode)
         scene.rootNode.addChildNode(modelCarNode)
@@ -195,8 +195,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     }
     
     @IBAction func SliderRotation(_ sender: UISlider) {
-        sender.minimumValue = 0
-        sender.maximumValue = 6.2
+        if (modelSceneNode.isHidden == false) {
+            sender.minimumValue = -1.57
+            sender.maximumValue = 0
+        } else {
+            sender.minimumValue = 0
+            sender.maximumValue = 1.57
+        }
+
+        print(sender.value)
         modelSceneNode.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
         modelSceneNodeOpen.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
     }
