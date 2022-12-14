@@ -45,7 +45,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="OPEN ME"/>
                                 <connections>
-                                    <action selector="OpenCloseCase:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Apy-Kz-WF7"/>
+                                    <action selector="OpenCloseCase:" destination="BV1-FR-VrT" eventType="touchUpInside" id="aMS-1c-3ih"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxF-4T-WbR">

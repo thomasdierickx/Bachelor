@@ -1,0 +1,20 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "ImgComp.arreferenceimage"
+    },
+    {
+      "filename" : "ImgCover.arreferenceimage"
+    },
+    {
+      "filename" : "ImgLock.arreferenceimage"
+    },
+    {
+      "filename" : "ImgWheels.arreferenceimage"
+    }
+  ]
+}
