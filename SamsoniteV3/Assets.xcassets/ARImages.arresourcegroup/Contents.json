@@ -5,16 +5,13 @@
   },
   "resources" : [
     {
-      "filename" : "ImgComp.arreferenceimage"
-    },
-    {
       "filename" : "ImgCover.arreferenceimage"
     },
     {
       "filename" : "ImgLock.arreferenceimage"
     },
     {
-      "filename" : "ImgWheels.arreferenceimage"
+      "filename" : "ImgZ.arreferenceimage"
     }
   ]
 }

@@ -42,7 +42,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         super.viewDidLoad()
         
         self.hud = MBProgressHUD.showAdded(to: self.sceneView, animated: true);
-        self.hud.label.text = "Welcome to the Samsonite AR application!"
+        self.hud.label.text = "Hello there!"
+        self.hud.detailsLabel.text = "Welcome to the Samsonite AR application! Use me to scan the catalogus and look for hidden features!"
+        self.hud.hide(animated: true, afterDelay: 5)
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -164,69 +166,95 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         // Cover video
         guard let imageAnchor = anchor as? ARImageAnchor, let fileUrlString = Bundle.main.path(forResource: "IbonVideo", ofType: "mp4") else {return}
-        
+        guard let imageAnchor2 = anchor as? ARImageAnchor, let fileUrlString2 = Bundle.main.path(forResource: "Lock", ofType: "mp4") else {return}
+        guard let imageAnchor3 = anchor as? ARImageAnchor, let fileUrlString3 = Bundle.main.path(forResource: "Comp", ofType: "mp4") else {return}
+
         //find our video file
         let videoItem = AVPlayerItem(url: URL(fileURLWithPath: fileUrlString))
         let player = AVPlayer(playerItem: videoItem)
+        let videoItem2 = AVPlayerItem(url: URL(fileURLWithPath: fileUrlString2))
+        let player2 = AVPlayer(playerItem: videoItem2)
+        let videoItem3 = AVPlayerItem(url: URL(fileURLWithPath: fileUrlString3))
+        let player3 = AVPlayer(playerItem: videoItem3)
         
         //initialize video node with avplayer
         let videoNode = SKVideoNode(avPlayer: player)
         player.play()
+        let videoNode2 = SKVideoNode(avPlayer: player2)
+        player2.play()
+        let videoNode3 = SKVideoNode(avPlayer: player3)
+        player3.play()
         
         // add observer when our player.currentItem finishes player, then start playing from the beginning
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: nil) { (notification) in
             player.seek(to: CMTime.zero)
             player.play()
-            print("Looping Video")
+        }
+        
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player2.currentItem, queue: nil) { (notification) in
+            player2.seek(to: CMTime.zero)
+            player2.play()
+        }
+        
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player3.currentItem, queue: nil) { (notification) in
+            player3.seek(to: CMTime.zero)
+            player3.play()
         }
                 
         // set the size (just a rough one will do)
         let videoScene = SKScene(size: CGSize(width: 1000, height: 1000))
-        
+        let videoScene2 = SKScene(size: CGSize(width: 1000, height: 1000))
+        let videoScene3 = SKScene(size: CGSize(width: 1000, height: 1000))
+
         // center our video to the size of our video scene
         videoNode.position = CGPoint(x: videoScene.size.width / 2, y: videoScene.size.height / 2)
-        
+        videoNode2.position = CGPoint(x: videoScene2.size.width / 2, y: videoScene2.size.height / 2)
+        videoNode3.position = CGPoint(x: videoScene3.size.width / 2, y: videoScene3.size.height / 2)
+
         // invert our video so it does not look upside down
         videoNode.yScale = -1.0
-        
+        videoNode2.yScale = -1.0
+        videoNode3.yScale = -1.0
+
         // add the video to our scene
         videoScene.addChild(videoNode)
+        videoScene2.addChild(videoNode2)
+        videoScene3.addChild(videoNode3)
         
         // create a plan that has the same real world height and width as our detected image
         let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
-        
+        let plane2 = SCNPlane(width: imageAnchor2.referenceImage.physicalSize.width, height: imageAnchor2.referenceImage.physicalSize.height)
+        let plane3 = SCNPlane(width: imageAnchor3.referenceImage.physicalSize.width, height: imageAnchor3.referenceImage.physicalSize.height)
+
         // set the first materials content to be our video scene
-        plane.firstMaterial?.diffuse.contents = videoScene
+        print(imageAnchor.referenceImage.name)
+        print(imageAnchor2.referenceImage.name)
+        print(imageAnchor3.referenceImage.name)
         
+        if imageAnchor.referenceImage.name == "ImgCover" && imageAnchor2.referenceImage.name == "ImgCover" && imageAnchor3.referenceImage.name == "ImgCover" {
+            plane.firstMaterial?.diffuse.contents = videoScene
+        }
+        if imageAnchor.referenceImage.name == "ImgLock" && imageAnchor2.referenceImage.name == "ImgLock" && imageAnchor3.referenceImage.name == "ImgLock" {
+            plane2.firstMaterial?.diffuse.contents = videoScene2
+        }
+        if imageAnchor.referenceImage.name == "ImgZ" && imageAnchor2.referenceImage.name == "ImgZ" && imageAnchor3.referenceImage.name == "ImgZ" {
+            plane3.firstMaterial?.diffuse.contents = videoScene3
+        }
+
         // create a node out of the plane
         let planeNode = SCNNode(geometry: plane)
-                
+        let planeNode2 = SCNNode(geometry: plane2)
+        let planeNode3 = SCNNode(geometry: plane3)
+
         // since the created node will be vertical, rotate it along the x axis to have it be horizontal or parallel to our detected image
         planeNode.eulerAngles.x = -Float.pi / 2
-        
+        planeNode2.eulerAngles.x = -Float.pi / 2
+        planeNode3.eulerAngles.x = -Float.pi / 2
+
         // finally add the plane node (which contains the video node) to the added node
         node.addChildNode(planeNode)
-        
-        // Lock video
-        guard let imageAnchor2 = anchor as? ARImageAnchor, let fileUrlString2 = Bundle.main.path(forResource: "Lock", ofType: "mp4") else {return}
-        let videoItem2 = AVPlayerItem(url: URL(fileURLWithPath: fileUrlString2))
-        let player2 = AVPlayer(playerItem: videoItem2)
-        let videoNode2 = SKVideoNode(avPlayer: player2)
-        player2.play()
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player2.currentItem, queue: nil) { (notification) in
-            player2.seek(to: CMTime.zero)
-            player2.play()
-            print("Looping Video")
-        }
-        let videoScene2 = SKScene(size: CGSize(width: 1000, height: 1000))
-        videoNode2.position = CGPoint(x: videoScene2.size.width / 2, y: videoScene2.size.height / 2)
-        videoNode2.yScale = -1.0
-        videoScene2.addChild(videoNode2)
-        let plane2 = SCNPlane(width: imageAnchor2.referenceImage.physicalSize.width, height: imageAnchor2.referenceImage.physicalSize.height)
-        plane2.firstMaterial?.diffuse.contents = videoScene2
-        let planeNode2 = SCNNode(geometry: plane2)
-        planeNode2.eulerAngles.x = -Float.pi / 2
         node.addChildNode(planeNode2)
+        node.addChildNode(planeNode3)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -242,7 +270,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         if let trackedImgs = ARReferenceImage.referenceImages(inGroupNamed: "ARImages", bundle: Bundle.main) {
             configImg.trackingImages = trackedImgs
-            configImg.maximumNumberOfTrackedImages = 2
+            configImg.maximumNumberOfTrackedImages = 1
         }
         
         sceneView.session.run(configImg)
