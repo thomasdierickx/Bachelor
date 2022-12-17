@@ -26,15 +26,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     var modelGlobal: SCNScene = SCNScene()
     var modelRoomNode: SCNNode = SCNNode();
     var modelCarNode: SCNNode = SCNNode();
-    
-    // Intro
-    var node: SCNNode = SCNNode();
-    var nodeBodyText: SCNNode = SCNNode();
-    // Part 1
-    var nodeInstr: SCNNode = SCNNode();
-    var nodeInstrText: SCNNode = SCNNode();
+    var modelTextNode: SCNNode = SCNNode();
     
     var configuration = ARWorldTrackingConfiguration()
+    var configImg = ARImageTrackingConfiguration()
+    
+    var configChoise = false
     
     private var hud: MBProgressHUD!
     
@@ -73,16 +70,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         modelCarNode = modelGlobal.rootNode.childNode(withName: "Car", recursively: true)!
         modelCarNode.isHidden = true
         
+        modelTextNode = modelGlobal.rootNode.childNode(withName: "Intro", recursively: true)!
+        modelTextNode.isHidden = true
+        
         scene.rootNode.addChildNode(modelRoomNode)
         scene.rootNode.addChildNode(modelCarNode)
-        
-        
-        // Create 3D text
-        let text = SCNText(string: "Hello!", extrusionDepth: 2);
-        text.font = UIFont(name: "Helvetica", size: 10)
-        let bodyText = SCNText(string: "I'm the new Samsonite case called Ibon. I can \n practically fit anywhere or you can even fit anything inside of me! \n Go ahead and give it a try. Touch the \n lock to open me. You can also drag me \n everywhere you want!", extrusionDepth: 1)
-        bodyText.font = UIFont(name: "Helvetica", size: 10)
-        
+        scene.rootNode.addChildNode(modelTextNode)
+  
         let carText = SCNText(string: "Do i fit in here?", extrusionDepth: 2)
         carText.font = UIFont(name: "Helvetica", size: 10)
         
@@ -90,14 +84,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         // Create & Add color
         let material = SCNMaterial();
         material.diffuse.contents = UIColor.red;
-        text.materials = [material];
         carText.materials = [material]
-        
-        // Creates node object & positions it
-        node.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
-        node.position.z = -3
-        node.geometry = text;
-        node.isHidden = true
         
         nodeCarText.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
         nodeCarText.position = SCNVector3(x: -9, y: 1.5, z: -1.5)
@@ -107,49 +94,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         let materialWhite = SCNMaterial();
         materialWhite.diffuse.contents = UIColor.white;
-        bodyText.materials = [materialWhite]
-        nodeBodyText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
-        nodeBodyText.position.y = -0.7;
-        nodeBodyText.position.z = -3
-        nodeBodyText.geometry = bodyText;
-        nodeBodyText.isHidden = true
-        
-        // Part 1
-        let titleInstr = SCNText(string: "Instructions", extrusionDepth: 2);
-        titleInstr.materials = [material];
-        titleInstr.font = UIFont(name: "Helvetica", size: 10)
-        nodeInstr.scale = SCNVector3(x: 0.04, y: 0.04, z: 0.04);
-        nodeInstr.position.y = -50;
-        nodeInstr.position.z = -3
-        nodeInstr.geometry = titleInstr;
-        nodeInstr.isHidden = true
-        
-        let bodyInstrText = SCNText(string: "Swipe right for next text \n Swipe left for previous text \n Move slider to see the real life size \n Tap to change the colors \n Click on the lock to open it \n Experiment and enjoy!", extrusionDepth: 1)
-        bodyInstrText.materials = [materialWhite]
-        bodyInstrText.font = UIFont(name: "Helvetica", size: 10)
-        nodeInstrText.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01);
-        nodeInstrText.position.y = -50.7;
-        nodeInstrText.position.z = -3
-        nodeInstrText.geometry = bodyInstrText;
-        nodeInstrText.isHidden = true
         
         // Set the scene & elements to the view
         sceneView.scene = scene
-        sceneView.scene.rootNode.addChildNode(node);
         sceneView.autoenablesDefaultLighting = true; // Adds lighting and shadows
-        sceneView.scene.rootNode.addChildNode(nodeBodyText);
-        sceneView.scene.rootNode.addChildNode(nodeInstr);
-        sceneView.scene.rootNode.addChildNode(nodeInstrText);
         sceneView.scene.rootNode.addChildNode(nodeCarText)
-        
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(Swiping(_:)))
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(Swiping(_:)))
-
-        leftSwipe.direction = .left
-        rightSwipe.direction = .right
-        
-        sceneView.addGestureRecognizer(leftSwipe)
-        sceneView.addGestureRecognizer(rightSwipe)
         
         // Add pan gesture for dragging the textNode about
         sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
@@ -161,6 +110,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             DispatchQueue.main.async {
                 self.hud.label.text = "Plane Detected"
                 self.hud.hide(animated: true, afterDelay: 1.0)
+            }
+            if configChoise == true {
+                onlyLoadWhenLoaded()
+            } else {
+                print("not yet")
             }
         }
         
@@ -227,10 +181,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         let plane3 = SCNPlane(width: imageAnchor3.referenceImage.physicalSize.width, height: imageAnchor3.referenceImage.physicalSize.height)
 
         // set the first materials content to be our video scene
-        print(imageAnchor.referenceImage.name)
-        print(imageAnchor2.referenceImage.name)
-        print(imageAnchor3.referenceImage.name)
-        
         if imageAnchor.referenceImage.name == "ImgCover" && imageAnchor2.referenceImage.name == "ImgCover" && imageAnchor3.referenceImage.name == "ImgCover" {
             plane.firstMaterial?.diffuse.contents = videoScene
         }
@@ -257,6 +207,43 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         node.addChildNode(planeNode3)
     }
     
+    func onlyLoadWhenLoaded() {
+        
+        modelSceneNode.isHidden = false
+        modelSceneNodeOpen.isHidden = false
+        modelSceneNodeOpen.isHidden = false
+        modelRoomNode.isHidden = false
+        modelCarNode.isHidden = false
+        nodeCarText.isHidden = false
+        modelTextNode.isHidden = false
+        
+    }
+    
+    func onlyHideWhenLoaded() {
+        
+        modelSceneNode.isHidden = true
+        modelSceneNodeOpen.isHidden = true
+        modelSceneNodeOpen.isHidden = true
+        modelRoomNode.isHidden = true
+        modelCarNode.isHidden = true
+        nodeCarText.isHidden = true
+        modelTextNode.isHidden = true
+        
+    }
+    
+    
+    @IBAction func ChangeBool(_ sender: UIButton) {
+        configChoise = !configChoise
+        if configChoise == false {
+            print(configChoise)
+            viewWillAppear(true)
+        } else {
+            print(configChoise)
+            viewWillAppear(true)
+        }
+        print(configChoise)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -264,16 +251,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         configuration.planeDetection = .horizontal
 
         // Run the view's session
-        sceneView.session.run(configuration)
-        
-        let configImg = ARImageTrackingConfiguration()
-        
+
         if let trackedImgs = ARReferenceImage.referenceImages(inGroupNamed: "ARImages", bundle: Bundle.main) {
             configImg.trackingImages = trackedImgs
             configImg.maximumNumberOfTrackedImages = 1
         }
-        
-        sceneView.session.run(configImg)
+
+        if configChoise == false {
+            onlyHideWhenLoaded()
+            sceneView.session.run(configImg)
+        } else {
+            sceneView.session.run(configuration)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -297,23 +286,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         modelSceneNodeOpen.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
     }
     
-    @IBAction func Swiping(_ sender: UISwipeGestureRecognizer) {
-        let arrNodes = [node, nodeBodyText, nodeInstr, nodeInstrText];
-        
-        switch sender.direction{
-            case .left:
-                for arrNode in arrNodes {
-                    arrNode.position.y = arrNode.position.y - 51
-                }
-            case .right:
-                for arrNode in arrNodes {
-                    arrNode.position.y = arrNode.position.y + 51
-                }
-            default://default
-                print("default")
-            }
-    }
-    
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
         
         gesture.minimumNumberOfTouches = 1
@@ -329,9 +301,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             let resultRay: [ARRaycastResult] = [resultsRay.first!]
             
             let posRay = SCNVector3Make(resultRay[0].worldTransform.columns.3.x, resultRay[0].worldTransform.columns.3.y, resultRay[0].worldTransform.columns.3.z)
-            
-            modelSceneNode.position = posRay
-            modelSceneNodeOpen.position = posRay
+            if modelSceneNode.isHidden == false {
+                modelSceneNode.position = posRay
+                modelSceneNodeOpen.position = posRay
+                modelSceneNodeOpen.isHidden = true
+            } else {
+                modelSceneNode.position = posRay
+                modelSceneNodeOpen.position = posRay
+                modelSceneNode.isHidden = true
+            }
         } else {
             print("resultsRay is empty")
         }

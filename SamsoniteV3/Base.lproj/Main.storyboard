@@ -21,7 +21,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="810" height="1080"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="RiO-uO-p9E" appends="YES" id="Ni7-Wy-MXc"/>
                                     <outletCollection property="gestureRecognizers" destination="k6a-aa-2KH" appends="YES" id="D1O-Cs-t5j"/>
                                 </connections>
                             </arscnView>
@@ -37,36 +36,47 @@
                                     <action selector="ResetScene:" destination="BV1-FR-VrT" eventType="touchUpInside" id="5dV-Ql-z8e"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqS-Il-DNt">
-                                <rect key="frame" x="225" y="987" width="361" height="35"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="arrow.triangle.2.circlepath" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="34N-94-QC7">
+                                <rect key="frame" x="731" y="48.5" width="50" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBB-it-t4m">
+                                <rect key="frame" x="224" y="994" width="361" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.1593982796" green="0.28976537320000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="OPEN ME"/>
                                 <connections>
-                                    <action selector="OpenCloseCase:" destination="BV1-FR-VrT" eventType="touchUpInside" id="aMS-1c-3ih"/>
+                                    <action selector="OpenCloseCase:" destination="BV1-FR-VrT" eventType="touchUpInside" id="mjc-mw-dxN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxF-4T-WbR">
-                                <rect key="frame" x="225" y="899" width="50" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-sE-GGJ">
+                                <rect key="frame" x="224" y="916" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mzq-kk-zFD">
-                                <rect key="frame" x="223" y="928" width="365" height="30"/>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4CP-2E-zqu">
+                                <rect key="frame" x="223" y="945" width="365" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="SliderRotation:" destination="BV1-FR-VrT" eventType="valueChanged" id="DoN-1s-9a4"/>
+                                    <action selector="SliderRotation:" destination="BV1-FR-VrT" eventType="valueChanged" id="87W-N7-pXl"/>
                                 </connections>
                             </slider>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="arrow.triangle.2.circlepath" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="34N-94-QC7">
-                                <rect key="frame" x="731" y="48.5" width="50" height="55"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWn-6Y-8Sc">
+                                <rect key="frame" x="224" y="850" width="361" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1593982796" green="0.28976537320000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="PLAY"/>
+                                <connections>
+                                    <action selector="ChangeBool:" destination="BV1-FR-VrT" eventType="touchUpInside" id="c2o-m9-tyw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -82,11 +92,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="RiO-uO-p9E">
-                    <connections>
-                        <action selector="Swiping:" destination="BV1-FR-VrT" id="ITy-Lb-kcR"/>
-                    </connections>
-                </swipeGestureRecognizer>
                 <rotationGestureRecognizer id="k6a-aa-2KH">
                     <connections>
                         <action selector="RotateCase:" destination="BV1-FR-VrT" id="6GX-z2-1hM"/>
