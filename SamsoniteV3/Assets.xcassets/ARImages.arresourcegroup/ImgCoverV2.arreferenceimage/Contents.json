@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "ImgCoverV2.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "width" : 0.14000000000000001
+  }
+}

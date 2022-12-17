@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E003E6B8294E070900EB9FB3 /* IbonVideoV2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E003E6B7294E070800EB9FB3 /* IbonVideoV2.mp4 */; };
 		E06403D2294B43CD0092704C /* Comp.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E06403D1294B43CD0092704C /* Comp.mp4 */; };
 		E0C6913C2930F587000C6464 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C6913B2930F587000C6464 /* AppDelegate.swift */; };
 		E0C6913E2930F587000C6464 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C6913D2930F587000C6464 /* art.scnassets */; };
@@ -20,7 +21,6 @@
 		E0C6917D2934F1A0000C6464 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */; };
 		E0C6917E2934F1A0000C6464 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */; };
 		E0C6917F2934F1A0000C6464 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */; };
-		E0D7A3542948C01A00968518 /* IbonVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E0D7A3532948C01A00968518 /* IbonVideo.mp4 */; };
 		E0D7A3562949054B00968518 /* Lock.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E0D7A3552949054B00968518 /* Lock.mp4 */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E003E6B7294E070800EB9FB3 /* IbonVideoV2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IbonVideoV2.mp4; sourceTree = "<group>"; };
 		E06403D1294B43CD0092704C /* Comp.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comp.mp4; sourceTree = "<group>"; };
 		E0C691382930F587000C6464 /* SamsoniteV3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SamsoniteV3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C6913B2930F587000C6464 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		E0C6917A2934F19B000C6464 /* SamsoniteV3UITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SamsoniteV3UITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		E0C6917C2934F1A0000C6464 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		E0D7A3532948C01A00968518 /* IbonVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IbonVideo.mp4; sourceTree = "<group>"; };
 		E0D7A3552949054B00968518 /* Lock.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lock.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,7 +149,7 @@
 				E0C6917B2934F1A0000C6464 /* MBProgressHUD.m */,
 				E0C691412930F587000C6464 /* Main.storyboard */,
 				E0C691442930F589000C6464 /* Assets.xcassets */,
-				E0D7A3532948C01A00968518 /* IbonVideo.mp4 */,
+				E003E6B7294E070800EB9FB3 /* IbonVideoV2.mp4 */,
 				E0D7A3552949054B00968518 /* Lock.mp4 */,
 				E06403D1294B43CD0092704C /* Comp.mp4 */,
 				E0C691462930F589000C6464 /* LaunchScreen.storyboard */,
@@ -291,7 +291,7 @@
 				E0C6913E2930F587000C6464 /* art.scnassets in Resources */,
 				E0C691482930F589000C6464 /* LaunchScreen.storyboard in Resources */,
 				E0D7A3562949054B00968518 /* Lock.mp4 in Resources */,
-				E0D7A3542948C01A00968518 /* IbonVideo.mp4 in Resources */,
+				E003E6B8294E070900EB9FB3 /* IbonVideoV2.mp4 in Resources */,
 				E0C691452930F589000C6464 /* Assets.xcassets in Resources */,
 				E0C691432930F587000C6464 /* Main.storyboard in Resources */,
 			);

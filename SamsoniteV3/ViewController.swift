@@ -39,9 +39,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         super.viewDidLoad()
         
         self.hud = MBProgressHUD.showAdded(to: self.sceneView, animated: true);
-        self.hud.label.text = "Hello there!"
-        self.hud.detailsLabel.text = "Welcome to the Samsonite AR application! Use me to scan the catalogus and look for hidden features!"
-        self.hud.hide(animated: true, afterDelay: 5)
+        self.hud.label.text = "Loading assets"
+        self.hud.detailsLabel.text = "Welcome to the Samsonite AR application! Use me \n to scan the catalogus and look for hidden features!"
+        self.hud.hide(animated: true, afterDelay: 3)
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -92,9 +92,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         nodeCarText.geometry = carText;
         nodeCarText.isHidden = true
         
-        let materialWhite = SCNMaterial();
-        materialWhite.diffuse.contents = UIColor.white;
-        
         // Set the scene & elements to the view
         sceneView.scene = scene
         sceneView.autoenablesDefaultLighting = true; // Adds lighting and shadows
@@ -119,7 +116,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         }
         
         // Cover video
-        guard let imageAnchor = anchor as? ARImageAnchor, let fileUrlString = Bundle.main.path(forResource: "IbonVideo", ofType: "mp4") else {return}
+        guard let imageAnchor = anchor as? ARImageAnchor, let fileUrlString = Bundle.main.path(forResource: "IbonVideoV2", ofType: "mp4") else {return}
         guard let imageAnchor2 = anchor as? ARImageAnchor, let fileUrlString2 = Bundle.main.path(forResource: "Lock", ofType: "mp4") else {return}
         guard let imageAnchor3 = anchor as? ARImageAnchor, let fileUrlString3 = Bundle.main.path(forResource: "Comp", ofType: "mp4") else {return}
 
@@ -156,7 +153,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         }
                 
         // set the size (just a rough one will do)
-        let videoScene = SKScene(size: CGSize(width: 1000, height: 1000))
+        let videoScene = SKScene(size: CGSize(width: 3266, height: 3888))
         let videoScene2 = SKScene(size: CGSize(width: 1000, height: 1000))
         let videoScene3 = SKScene(size: CGSize(width: 1000, height: 1000))
 
@@ -181,7 +178,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         let plane3 = SCNPlane(width: imageAnchor3.referenceImage.physicalSize.width, height: imageAnchor3.referenceImage.physicalSize.height)
 
         // set the first materials content to be our video scene
-        if imageAnchor.referenceImage.name == "ImgCover" && imageAnchor2.referenceImage.name == "ImgCover" && imageAnchor3.referenceImage.name == "ImgCover" {
+        if imageAnchor.referenceImage.name == "ImgCoverV2" && imageAnchor2.referenceImage.name == "ImgCoverV2" && imageAnchor3.referenceImage.name == "ImgCoverV2" {
             plane.firstMaterial?.diffuse.contents = videoScene
         }
         if imageAnchor.referenceImage.name == "ImgLock" && imageAnchor2.referenceImage.name == "ImgLock" && imageAnchor3.referenceImage.name == "ImgLock" {
@@ -198,6 +195,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
         // since the created node will be vertical, rotate it along the x axis to have it be horizontal or parallel to our detected image
         planeNode.eulerAngles.x = -Float.pi / 2
+        planeNode.position.y = +0.001
         planeNode2.eulerAngles.x = -Float.pi / 2
         planeNode3.eulerAngles.x = -Float.pi / 2
 
@@ -210,8 +208,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     func onlyLoadWhenLoaded() {
         
         modelSceneNode.isHidden = false
-        modelSceneNodeOpen.isHidden = false
-        modelSceneNodeOpen.isHidden = false
         modelRoomNode.isHidden = false
         modelCarNode.isHidden = false
         nodeCarText.isHidden = false
@@ -321,7 +317,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
                 node.removeFromParentNode()
             }
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        viewDidLoad()
+        if configChoise == false {
+            sceneView.session.run(configImg)
+        } else {
+            sceneView.session.run(configuration)
+        }
+        print(configChoise)
     }
     
     @IBAction func OpenCloseCase(_ sender: UIButton) {
