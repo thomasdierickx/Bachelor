@@ -74,6 +74,10 @@
                                     <action selector="ChangeBool:" destination="BV1-FR-VrT" eventType="touchUpInside" id="c2o-m9-tyw"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5YJ-Xb-b3g">
+                                <rect key="frame" x="135" y="0.0" width="540" height="288"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,6 +108,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ShowMessage" destination="5YJ-Xb-b3g" id="rDw-Qh-Fag"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>
