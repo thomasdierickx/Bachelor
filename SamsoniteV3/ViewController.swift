@@ -277,7 +277,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             print(configChoise)
             viewWillAppear(true)
         }
-        print(configChoise)
     }
     
     func DisplayMessage(ImgName: String) {
@@ -323,21 +322,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     }
     
     @IBAction func SliderRotation(_ sender: UISlider) {
-        if configMessRot == true {
-            DisplayMessage(ImgName: "MessageRotate.png")
-            configMessRot = false
-        }
-        if (modelSceneNode.isHidden == false) {
-            sender.minimumValue = -1.57
-            sender.maximumValue = 0
+        if configChoise == false {
+            sender.tintColor = UIColor.systemRed
+            DisplayMessage(ImgName: "ErrorGame.png")
         } else {
-            sender.minimumValue = 0
-            sender.maximumValue = 1.57
-        }
+            sender.tintColor = UIColor.systemBlue
+            if configMessRot == true {
+                DisplayMessage(ImgName: "MessageRotate.png")
+                configMessRot = false
+            }
+            if (modelSceneNode.isHidden == false) {
+                sender.minimumValue = -1.57
+                sender.maximumValue = 0
+            } else {
+                sender.minimumValue = 0
+                sender.maximumValue = 1.57
+            }
 
-        print(sender.value)
-        modelSceneNode.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
-        modelSceneNodeOpen.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
+            print(sender.value)
+            modelSceneNode.eulerAngles = SCNVector3(x: 1.5, y: 0, z: sender.value)
+            modelSceneNodeOpen.eulerAngles = SCNVector3(x: sender.value, y: 0, z: 0)
+        }
     }
     
     @IBOutlet var ShowMessage: UIImageView!
@@ -383,39 +388,44 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     
     @IBAction func ResetScene(_ sender: UIButton) {
         sceneView.session.pause()
-            sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
-                node.removeFromParentNode()
-            }
+        sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in node.removeFromParentNode() }
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
         if configChoise == false {
             sceneView.session.run(configImg)
         } else {
             sceneView.session.run(configuration)
         }
-        print(configChoise)
     }
     
     @IBAction func OpenCloseCase(_ sender: UIButton) {
-        if configMessOpen == true {
-            DisplayMessage(ImgName: "MessageOpen.png")
-            configMessOpen = false
-        }
-        if modelSceneNode.isHidden == false {
-            modelSceneNode.isHidden = true
-            let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.customView
-            loadingNotification.label.text = "Good job, the case is open!"
-            modelSceneNodeOpen.isHidden = false
-            loadingNotification.hide(animated: true, afterDelay: 1.0)
-            sender.setTitle("CLOSE ME", for: .normal)
+        if configChoise == false {
+            sender.backgroundColor = UIColor.systemRed
+            DisplayMessage(ImgName: "ErrorGame.png")
+            
         } else {
-            modelSceneNodeOpen.isHidden = true
-            let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.customView
-            loadingNotification.label.text = "Good job, the case is closed!"
-            modelSceneNode.isHidden = false
-            loadingNotification.hide(animated: true, afterDelay: 1.0)
-            sender.setTitle("OPEN ME", for: .normal)
+            sender.backgroundColor = UIColor.systemBlue
+            if configMessOpen == true {
+                DisplayMessage(ImgName: "MessageOpen.png")
+                configMessOpen = false
+            }
+            if modelSceneNode.isHidden == false {
+                modelSceneNode.isHidden = true
+                let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
+                loadingNotification.mode = MBProgressHUDMode.customView
+                loadingNotification.label.text = "Good job, the case is open!"
+                modelSceneNodeOpen.isHidden = false
+                loadingNotification.hide(animated: true, afterDelay: 1.0)
+                sender.setTitle("CLOSE ME", for: .normal)
+            } else {
+                modelSceneNodeOpen.isHidden = true
+                let loadingNotification = MBProgressHUD.showAdded(to: self.sceneView, animated: true)
+                loadingNotification.mode = MBProgressHUDMode.customView
+                loadingNotification.label.text = "Good job, the case is closed!"
+                modelSceneNode.isHidden = false
+                loadingNotification.hide(animated: true, afterDelay: 1.0)
+                sender.setTitle("OPEN ME", for: .normal)
+            }
         }
     }
     
@@ -430,8 +440,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     
     @IBAction func RotateCase(_ sender: UIRotationGestureRecognizer) {
         guard sender.state == .changed else { return }
-        
-        print(sender)
         
         modelSceneNode.eulerAngles.y += Float(sender.rotation)
         modelSceneNodeOpen.eulerAngles.y += Float(sender.rotation)
