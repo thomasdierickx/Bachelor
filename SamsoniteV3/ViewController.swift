@@ -228,13 +228,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
         // since the created node will be vertical, rotate it along the x axis to have it be horizontal or parallel to our detected image
         planeNode.eulerAngles.x = -Float.pi / 2
-        planeNode.position.y = +0.002
         planeNode2.eulerAngles.x = -Float.pi / 2
-        planeNode2.position.y = +0.001
         planeNode3.eulerAngles.x = -Float.pi / 2
-        planeNode3.position.y = +0.001
         planeNode4.eulerAngles.x = -Float.pi / 2
-        planeNode4.position.y = +0.001
+        
+        if imageAnchor.referenceImage.name == "ImgCoverV2" && imageAnchor2.referenceImage.name == "ImgCoverV2" && imageAnchor3.referenceImage.name == "ImgCoverV2" && imageAnchor4.referenceImage.name == "ImgCoverV2"{
+            planeNode.position.y = +0.001
+        }
+        if imageAnchor.referenceImage.name == "ImgLock" && imageAnchor2.referenceImage.name == "ImgLock" && imageAnchor3.referenceImage.name == "ImgLock" && imageAnchor4.referenceImage.name == "ImgLock" {
+            planeNode2.position.y = +0.001
+        }
+        if imageAnchor.referenceImage.name == "ImgZ" && imageAnchor2.referenceImage.name == "ImgZ" && imageAnchor3.referenceImage.name == "ImgZ" && imageAnchor4.referenceImage.name == "ImgZ" {
+            planeNode3.position.y = +0.001
+        }
+        if imageAnchor.referenceImage.name == "ImgCase" && imageAnchor2.referenceImage.name == "ImgCase" && imageAnchor3.referenceImage.name == "ImgCase" && imageAnchor4.referenceImage.name == "ImgCase" {
+            planeNode4.position.y = +0.001
+        }
 
         // finally add the plane node (which contains the video node) to the added node
         node.addChildNode(planeNode)
