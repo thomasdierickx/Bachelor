@@ -1,10 +1,10 @@
 # Bachelor Project
 There are 2 sides to this project
--	Catalogue
+-	Catalog
 -	AR Application
 
-## Catalogue
-In this part the catalogue is a very important feature. Not only is this simply just a book with text and images but a showcase of every product that is made by Samsonite themselves. Now for people like me, you go through this book once, look at everything and close it and that's it. How can this be made more intractable or more experience full? It has to come to life!
+## Catalog
+In this part the Catalog is a very important feature. Not only is this simply just a book with text and images but a showcase of every product that is made by Samsonite themselves. Now for people like me, you go through this book once, look at everything and close it and that's it. How can this be made more interactable or more experience based? It has to come to life!
 
 ### Come to life
 The idea behind this part is basically that images turn to videos and transitions. Like in Harry Potter movies. Only, in this project, it's with cases. The app recognises certain images and replaces them with videos that support the Ibon etc.

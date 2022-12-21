@@ -48,7 +48,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         self.hud = MBProgressHUD.showAdded(to: self.sceneView, animated: true);
         self.hud.label.text = "Loading assets"
-        self.hud.detailsLabel.text = "Welcome to the Samsonite AR application! Use me \n to scan the catalogus and look for hidden features!"
+        self.hud.detailsLabel.text = "Welcome to the Samsonite AR application! Use me \n to scan the Catalog and look for hidden features!"
         self.hud.hide(animated: true, afterDelay: 3)
         
         // Set the view's delegate
