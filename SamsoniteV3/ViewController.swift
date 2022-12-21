@@ -128,7 +128,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
                 print("not yet")
             }
         }
-        print(anchor.transform.columns.3.x)
         
         // Cover video
         guard let imageAnchor = anchor as? ARImageAnchor, let fileUrlString = Bundle.main.path(forResource: "IbonVideoV2", ofType: "mp4") else {return}
@@ -245,7 +244,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         if imageAnchor.referenceImage.name == "ImgCase" && imageAnchor2.referenceImage.name == "ImgCase" && imageAnchor3.referenceImage.name == "ImgCase" && imageAnchor4.referenceImage.name == "ImgCase" {
             planeNode4.position.y = +0.001
         }
-
 
         // finally add the plane node (which contains the video node) to the added node
         node.addChildNode(planeNode)

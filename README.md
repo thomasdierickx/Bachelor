@@ -13,4 +13,4 @@ The idea behind this part is basically that images turn to videos and transition
 The AR app is another big feature. Not only does it work with every surrounding but it makes the Ibon case itself come to life. But the case is digitally visualised in the environment you are in! The user also has the opportunity to move the case to certain tables, closets and what not to fit it in. The app has several pre-loaded models for you to walk to, test and see if the case fits!
 
 ## How do they do it?
-Probably the most important description. The app is made in Swift Arkit. With some external libraries like MBProgressHud for messages, etc.
+Probably the most important description. The app is made in Swift Arkit. With some external libraries like MBProgressHud for messages, etc. The alert or messages the person recieves right now is made in illustrator and imported with UIImageView
